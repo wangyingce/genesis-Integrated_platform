@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	
+	<!-- 公共服务 -->
+	<bean id="commonService" class="com.ysyl.common.service.spring.CommonServiceSpringImpl" />
+	
+	<!-- 基础代码服务 -->
+	<bean id="codeService" class="com.ysyl.common.service.spring.CodeServiceSpringImpl" />
+	
+	<!-- 验证码服务 -->
+	<bean id="verifyService" class="com.ysyl.common.verify.service.spring.VervifyServiceSpringImpl" />
+	
+	<!-- 搜索引擎服务 -->
+	<bean id="searchService" class="com.ysyl.search.service.spring.SearchServiceSpringImpl" />
+	
+	<!-- 日志服务 -->
+	<bean id="logService" class="com.ysyl.common.log.service.spring.LogServiceSpringImpl" />
+	
+	<!-- 用户服务 -->
+	<bean id="userService" class="com.ysyl.common.user.service.spring.UserServiceSpringImpl" />
+	
+	<!-- 文件服务 -->
+	<bean id="fileService" class="com.ysyl.file.service.spring.FileServiceSpringImpl" />
+	
+	<!-- 商品分类 -->
+	<bean id="yyWaresClassService" class="com.ysyl.common.service.spring.YyWaresClassServiceSpringImpl"/>
+	
+	<!-- 商品分类明细 -->
+	<bean id="yyWaresDetailService" class="com.ysyl.common.service.spring.YyWaresDetailServiceSpringImpl"/>
+	
+	<!-- 购物车信息 -->
+	<bean id="yyShoppingCartService" class="com.ysyl.common.service.spring.YyShoppingCartServiceSpringImpl"/>
+</beans>

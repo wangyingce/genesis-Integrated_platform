@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+
+	<!--Hibernate TransactionManager-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="lobHandler" lazy-init="true"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+	<!--<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.WebLogicNativeJdbcExtractor" />
+	<bean id="lobHandler" lazy-init="true"
+		class="org.springframework.jdbc.support.lob.OracleLobHandler">
+		<property name="nativeJdbcExtractor">
+			<ref bean="nativeJdbcExtractor" />
+		</property>
+	</bean>-->
+	<bean id="sameDirClasses"
+		class="ins.framework.dao.SameDirClassFactoryBean">
+		<constructor-arg>
+			<list> 
+				<value>com.ysyl.weixin.schema.model.YywxUserInfo</value>
+				<value>com.ysyl.common.schema.model.IpServiceConfig</value>
+				<value>com.ysyl.common.schema.model.YyLog</value>
+				<value>com.ysyl.backstage.schema.model.YybsProduct</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	<!--Hibernate SessionFatory-->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="lobHandler" ref="lobHandler" />
+		<property name="annotatedClasses" ref="sameDirClasses"/>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+		<!-- 时间戳相关配置  		-->
+		<property name="eventListeners">
+			<map>
+				<entry key="post-delete" value-ref="operateHistoryListener" />
+				<entry key="pre-update" value-ref="operateHistoryListener" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 时间戳相关配置	-->
+	<bean id="operateHistoryListener" class="com.ysyl.common.listener.OperateHistoryListener">
+		<property name="operateTimeField" value="operateTime"/> 
+		<!-- 自定义取时间语句 -->
+	</bean>
+</beans>

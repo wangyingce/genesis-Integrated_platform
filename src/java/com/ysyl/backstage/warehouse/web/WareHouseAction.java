@@ -24,6 +24,7 @@ import com.ysyl.backstage.schema.model.WhAccessory;
 import com.ysyl.backstage.schema.model.WhCar;
 import com.ysyl.backstage.schema.model.WhCarSeries;
 import com.ysyl.backstage.warehouse.service.facade.WareHouseService;
+import com.ysyl.backstage.warehouse.vo.RetotheSituationVo;
 import com.ysyl.backstage.warehouse.vo.WareHouseVo;
 import com.ysyl.backstage.warehouse.vo.WhAccessoryVo;
 import com.ysyl.backstage.warehouse.vo.WhCarVo;
@@ -62,6 +63,10 @@ public class WareHouseAction extends Struts2Action{
 	private WhAccessory accessory;
 	/**------Accessory---end-----------**/
 	
+	/**------RetotheSituationInfo---start-----------**/
+	private String ReportedNumber; 
+	/**------RetotheSituationInfo---end-----------**/
+
 	/** 封装上传文件*/
 	private String realPath;
 
@@ -156,6 +161,38 @@ public class WareHouseAction extends Struts2Action{
 				}
 				JSONArray json = JSONArray.fromObject(cvos);
 				RnList(json,crs.size());
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 查询报备库列表
+	 * @return
+	 * @throws Exception
+	 */
+	public String queryDataEntrys() throws Exception{
+		checkPower();
+		SimpleDateFormat dteformat = new SimpleDateFormat("yyyy-MM-dd");
+		if(this.ReportedNumber!=null&&!"".equals(this.ReportedNumber)){
+			RetotheSituationInfo rsi = warehouseService.findRetotheSituationInfoById(this.ReportedNumber);
+			if(rsi!=null&&!"".equals(rsi)){
+				RetotheSituationVo rsivo =  new RetotheSituationVo();
+				DataUtils.copySimpleObject(rsi,rsivo);
+				RnMsg("queryOne",rsivo);
+			}
+		}else{
+			List<RetotheSituationInfo> rsis = warehouseService.findRetotheSituationInfoByAll(this.ReportedNumber,null,null,null);
+			if(rsis!=null&&rsis.size()>0){
+				List<RetotheSituationVo> rsisvo =  new ArrayList<RetotheSituationVo>(0);
+				for(RetotheSituationInfo rsi : rsis){
+					RetotheSituationVo rsivo =  new RetotheSituationVo();
+					DataUtils.copySimpleObject(rsi,rsivo);
+					rsivo.setInputtime(dteformat.format(rsi.getInputtime()));
+					rsisvo.add(rsivo);
+				}
+				JSONArray json = JSONArray.fromObject(rsisvo);
+				RnList(json,rsis.size());
 			}
 		}
 		return null;
@@ -389,10 +426,13 @@ public class WareHouseAction extends Struts2Action{
 	 * @throws Exception 
 	 */
 	public String dataEntry() throws Exception{
+		//检查权限
+		checkPower();
 		//组合全局路径
 		realPath = getRequest().getSession().getServletContext().getRealPath("/")+transEncode(realPath);
 		File file = new File(realPath);     
-	    warehouseService.setBasicDataByExcel(file);
+		//excel导入
+	    warehouseService.setBasicDataByExcel(file,(String) getRequest().getSession().getAttribute("UserName"));
 	    RnMsg("importXls","1");
 		return null;
 	}

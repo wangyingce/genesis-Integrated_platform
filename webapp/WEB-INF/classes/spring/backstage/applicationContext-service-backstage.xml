@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	
+	<!-- 登录验证服务 -->
+	<bean id="loginService" class="com.ysyl.backstage.login.service.spring.LoginServiceSpringImpl" />
+	<!-- 商品功能服务 -->
+	<bean id="productService" class="com.ysyl.backstage.product.service.spring.ProductServiceSpringImpl" />
+	<!-- 品牌功能服务 -->
+    <bean id="brandService" class="com.ysyl.backstage.brand.service.spring.BrandServiceSpringImpl" />
+	<!-- 报表功能服务 -->
+    <bean id="reportService" class="com.ysyl.backstage.report.service.spring.ReportServiceSpringImpl" />
+	<!-- 订单功能服务 -->
+    <bean id="orderService" class="com.ysyl.backstage.order.service.spring.OrderServiceSpringImpl" />
+    <!-- 图片管理功能服务-->
+    <bean id="advertService" class="com.ysyl.backstage.advert.service.spring.AdvertServiceSpringImpl" />
+    <!-- 仓库系统服务 -->
+     <bean id="warehouseService" class="com.ysyl.backstage.warehouse.service.spring.WareHouseServiceSpringImpl" />
+</beans>

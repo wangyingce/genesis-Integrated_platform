@@ -2,6 +2,7 @@
 import java.io.File;
 import java.util.List;
 
+import com.ysyl.backstage.schema.model.RetotheSituationInfo;
 import com.ysyl.backstage.schema.model.WhAccessory;
 import com.ysyl.backstage.schema.model.WhCar;
 import com.ysyl.backstage.schema.model.WhCarSeries;
@@ -44,5 +45,10 @@ public interface WareHouseService{
 	void delAccessory(WhAccessory acc);
 
 	void defWhObject(Object standObject);
-	void setBasicDataByExcel(File file);
+	void setBasicDataByExcel(File file, String userName);
+
+	List<RetotheSituationInfo> findRetotheSituationInfoByAll(String reportedNumber, Object object, Object object2,
+			Object object3);
+
+	RetotheSituationInfo findRetotheSituationInfoById(String reportedNumber);
 }

@@ -19,6 +19,7 @@
     <action name="delAccessory" class="warehouseAction" method="delAccessory"></action>
     
     <action name="dataEntry" class="warehouseAction" method="dataEntry"></action>
+    <action name="queryDataEntrys" class="warehouseAction" method="queryDataEntrys"></action>
     
 	</package>
 </struts>

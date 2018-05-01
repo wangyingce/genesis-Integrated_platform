@@ -1,5 +1,7 @@
 package com.ysyl.backstage.schema.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,34 +16,34 @@ import javax.persistence.Table;
 public class RetotheSituationInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String ReportedNumber;             
-	private String Submissiondate;             
-	private String Thebackup;                  
-	private String Reportedunit;               
-	private String Reportedphonenumber;        
-	private String Reportedmodels;             
-	private String EngineNO;                   
-	private String Productcode;                
+	private String reportedNumber;             
+	private String submissiondate;             
+	private String thebackup;                  
+	private String reportedunit;               
+	private String reportedphonenumber;        
+	private String reportedmodels;             
+	private String engineNO;                   
+	private String productcode;                
 	private String ALLVINNO;                   
 	private String VINNO;                      
-	private String Sold;                       
-	private String Soldcities;                 
+	private String sold;                       
+	private String soldcities;                 
 	private String username;                   
 	private String connectionway;              
 	private String personalname;               
 	private String insudernumber;              
 	private String personalcontact;            
-	private String Reportedstated;             
-	private String Reportedreason;             
-	private String Reporteddetail;            
-	private String Drivername;                 
+	private String reportedstated;             
+	private String reportedreason;             
+	private String reporteddetail;            
+	private String drivername;                 
 	private String provincessign;              
-	private String Relateddepartment;          
-	private String Relevantsignature;          
-	private String Whetherqualified;           
+	private String relateddepartment;          
+	private String relevantsignature;          
+	private String whetherqualified;           
 	private String lastdate;                   
-	private String Reportedyear;               
-	private String Reportedmonth;              
+	private String reportedyear;               
+	private String reportedmonth;              
 	private String squalified;                 
 	private String yqualified;                 
 	private String doorqualified;               
@@ -49,115 +51,117 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	private String instructions;                
 	private String failure;                     
 	private String losetrack;                   
-	private String Reporteddate;                
-	private String Makeinvoicedate;            
+	private String reporteddate;                
+	private String makeinvoicedate;            
 	private String rqualified;                 
-	private String Invoicebuyer;               
+	private String invoicebuyer;               
 	private String consistent;                 
 	private String trailer;                     
 	private String agreement;                   
 	private String relationship;                
-	private String Affiliateddangerous;         
+	private String affiliateddangerous;         
 	private String approval;                    
 	private String information;                 
-	private String Makeprice;                   
+	private String makeprice;                   
 	private String results;                     
 	private String reason;                      
 	private String rdetail;                      
 	private String provideinformation;          
-	private String Noticedate;                  
+	private String noticedate;                  
 	private String thirdphonedheadprice;        
 	private String thirdverifyprice;            
-	private String Thirdcallprices;             
-	private String Telephoneparty;
+	private String thirdcallprices;             
+	private String telephoneparty;
+	private Date inputtime;
+	private String createrName;
 	
 	/**       
 	 * Id
 	 */
 	@Id
-	@Column(name = "ReportedNumber")
+	@Column(name = "reportedNumber")
 	public String getReportedNumber() {
-		return ReportedNumber;
+		return reportedNumber;
 	}
 	public void setReportedNumber(String reportedNumber) {
-		ReportedNumber = reportedNumber;
+		this.reportedNumber = reportedNumber;
 	}
-	@Column(name = "Submissiondate")
+	@Column(name = "submissiondate")
 	public String getSubmissiondate() {
-		return Submissiondate;
+		return submissiondate;
 	}
 	public void setSubmissiondate(String submissiondate) {
-		Submissiondate = submissiondate;
+		this.submissiondate = submissiondate;
 	}
-	@Column(name = "Thebackup")
+	@Column(name = "thebackup")
 	public String getThebackup() {
-		return Thebackup;
+		return thebackup;
 	}
 	public void setThebackup(String thebackup) {
-		Thebackup = thebackup;
+		this.thebackup = thebackup;
 	}
-	@Column(name = "Reportedunit")
+	@Column(name = "reportedunit")
 	public String getReportedunit() {
-		return Reportedunit;
+		return reportedunit;
 	}
 	public void setReportedunit(String reportedunit) {
-		Reportedunit = reportedunit;
+		this.reportedunit = reportedunit;
 	}
-	@Column(name = "Reportedphonenumber")
+	@Column(name = "reportedphonenumber")
 	public String getReportedphonenumber() {
-		return Reportedphonenumber;
+		return reportedphonenumber;
 	}
 	public void setReportedphonenumber(String reportedphonenumber) {
-		Reportedphonenumber = reportedphonenumber;
+		this.reportedphonenumber = reportedphonenumber;
 	}
-	@Column(name = "Reportedmodels")
+	@Column(name = "reportedmodels")
 	public String getReportedmodels() {
-		return Reportedmodels;
+		return reportedmodels;
 	}
 	public void setReportedmodels(String reportedmodels) {
-		Reportedmodels = reportedmodels;
+		this.reportedmodels = reportedmodels;
 	}
-	@Column(name = "EngineNO")
+	@Column(name = "engineNO")
 	public String getEngineNO() {
-		return EngineNO;
+		return engineNO;
 	}
 	public void setEngineNO(String engineNO) {
-		EngineNO = engineNO;
+		this.engineNO = engineNO;
 	}
-	@Column(name = "Productcode")
+	@Column(name = "productcode")
 	public String getProductcode() {
-		return Productcode;
+		return productcode;
 	}
 	public void setProductcode(String productcode) {
-		Productcode = productcode;
+		this.productcode = productcode;
 	}
 	@Column(name = "ALLVINNO")
 	public String getALLVINNO() {
 		return ALLVINNO;
 	}
-	public void setALLVINNO(String allvinno) {
-		ALLVINNO = allvinno;
+	public void setALLVINNO(String aLLVINNO) {
+		ALLVINNO = aLLVINNO;
 	}
 	@Column(name = "VINNO")
 	public String getVINNO() {
 		return VINNO;
 	}
-	public void setVINNO(String vinno) {
-		VINNO = vinno;
+	public void setVINNO(String vINNO) {
+		VINNO = vINNO;
 	}
-	@Column(name = "Sold")
+	@Column(name = "sold")
 	public String getSold() {
-		return Sold;
+		return sold;
 	}
 	public void setSold(String sold) {
-		Sold = sold;
+		this.sold = sold;
 	}
-	@Column(name = "Soldcities")
+	@Column(name = "soldcities")
 	public String getSoldcities() {
-		return Soldcities;
+		return soldcities;
 	}
 	public void setSoldcities(String soldcities) {
-		Soldcities = soldcities;
+		this.soldcities = soldcities;
 	}
 	@Column(name = "username")
 	public String getUsername() {
@@ -194,33 +198,33 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setPersonalcontact(String personalcontact) {
 		this.personalcontact = personalcontact;
 	}
-	@Column(name = "Reportedstated")
+	@Column(name = "reportedstated")
 	public String getReportedstated() {
-		return Reportedstated;
+		return reportedstated;
 	}
 	public void setReportedstated(String reportedstated) {
-		Reportedstated = reportedstated;
+		this.reportedstated = reportedstated;
 	}
-	@Column(name = "Reportedreason")
+	@Column(name = "reportedreason")
 	public String getReportedreason() {
-		return Reportedreason;
+		return reportedreason;
 	}
 	public void setReportedreason(String reportedreason) {
-		Reportedreason = reportedreason;
+		this.reportedreason = reportedreason;
 	}
-	@Column(name = "Reporteddetail")
+	@Column(name = "reporteddetail")
 	public String getReporteddetail() {
-		return Reporteddetail;
+		return reporteddetail;
 	}
 	public void setReporteddetail(String reporteddetail) {
-		Reporteddetail = reporteddetail;
+		this.reporteddetail = reporteddetail;
 	}
-	@Column(name = "Drivername")
+	@Column(name = "drivername")
 	public String getDrivername() {
-		return Drivername;
+		return drivername;
 	}
 	public void setDrivername(String drivername) {
-		Drivername = drivername;
+		this.drivername = drivername;
 	}
 	@Column(name = "provincessign")
 	public String getProvincessign() {
@@ -229,26 +233,26 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setProvincessign(String provincessign) {
 		this.provincessign = provincessign;
 	}
-	@Column(name = "Relateddepartment")
+	@Column(name = "relateddepartment")
 	public String getRelateddepartment() {
-		return Relateddepartment;
+		return relateddepartment;
 	}
 	public void setRelateddepartment(String relateddepartment) {
-		Relateddepartment = relateddepartment;
+		this.relateddepartment = relateddepartment;
 	}
-	@Column(name = "Relevantsignature")
+	@Column(name = "relevantsignature")
 	public String getRelevantsignature() {
-		return Relevantsignature;
+		return relevantsignature;
 	}
 	public void setRelevantsignature(String relevantsignature) {
-		Relevantsignature = relevantsignature;
+		this.relevantsignature = relevantsignature;
 	}
-	@Column(name = "Whetherqualified")
+	@Column(name = "whetherqualified")
 	public String getWhetherqualified() {
-		return Whetherqualified;
+		return whetherqualified;
 	}
 	public void setWhetherqualified(String whetherqualified) {
-		Whetherqualified = whetherqualified;
+		this.whetherqualified = whetherqualified;
 	}
 	@Column(name = "lastdate")
 	public String getLastdate() {
@@ -257,19 +261,19 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setLastdate(String lastdate) {
 		this.lastdate = lastdate;
 	}
-	@Column(name = "Reportedyear")
+	@Column(name = "reportedyear")
 	public String getReportedyear() {
-		return Reportedyear;
+		return reportedyear;
 	}
 	public void setReportedyear(String reportedyear) {
-		Reportedyear = reportedyear;
+		this.reportedyear = reportedyear;
 	}
-	@Column(name = "Reportedmonth")
+	@Column(name = "reportedmonth")
 	public String getReportedmonth() {
-		return Reportedmonth;
+		return reportedmonth;
 	}
 	public void setReportedmonth(String reportedmonth) {
-		Reportedmonth = reportedmonth;
+		this.reportedmonth = reportedmonth;
 	}
 	@Column(name = "squalified")
 	public String getSqualified() {
@@ -320,19 +324,19 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setLosetrack(String losetrack) {
 		this.losetrack = losetrack;
 	}
-	@Column(name = "Reporteddate")
+	@Column(name = "reporteddate")
 	public String getReporteddate() {
-		return Reporteddate;
+		return reporteddate;
 	}
 	public void setReporteddate(String reporteddate) {
-		Reporteddate = reporteddate;
+		this.reporteddate = reporteddate;
 	}
-	@Column(name = "Makeinvoicedate")
+	@Column(name = "makeinvoicedate")
 	public String getMakeinvoicedate() {
-		return Makeinvoicedate;
+		return makeinvoicedate;
 	}
 	public void setMakeinvoicedate(String makeinvoicedate) {
-		Makeinvoicedate = makeinvoicedate;
+		this.makeinvoicedate = makeinvoicedate;
 	}
 	@Column(name = "rqualified")
 	public String getRqualified() {
@@ -341,12 +345,12 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setRqualified(String rqualified) {
 		this.rqualified = rqualified;
 	}
-	@Column(name = "Invoicebuyer")
+	@Column(name = "invoicebuyer")
 	public String getInvoicebuyer() {
-		return Invoicebuyer;
+		return invoicebuyer;
 	}
 	public void setInvoicebuyer(String invoicebuyer) {
-		Invoicebuyer = invoicebuyer;
+		this.invoicebuyer = invoicebuyer;
 	}
 	@Column(name = "consistent")
 	public String getConsistent() {
@@ -376,12 +380,12 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}
-	@Column(name = "Affiliateddangerous")
+	@Column(name = "affiliateddangerous")
 	public String getAffiliateddangerous() {
-		return Affiliateddangerous;
+		return affiliateddangerous;
 	}
 	public void setAffiliateddangerous(String affiliateddangerous) {
-		Affiliateddangerous = affiliateddangerous;
+		this.affiliateddangerous = affiliateddangerous;
 	}
 	@Column(name = "approval")
 	public String getApproval() {
@@ -397,12 +401,12 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setInformation(String information) {
 		this.information = information;
 	}
-	@Column(name = "Makeprice")
+	@Column(name = "makeprice")
 	public String getMakeprice() {
-		return Makeprice;
+		return makeprice;
 	}
 	public void setMakeprice(String makeprice) {
-		Makeprice = makeprice;
+		this.makeprice = makeprice;
 	}
 	@Column(name = "results")
 	public String getResults() {
@@ -432,12 +436,12 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setProvideinformation(String provideinformation) {
 		this.provideinformation = provideinformation;
 	}
-	@Column(name = "Noticedate")
+	@Column(name = "noticedate")
 	public String getNoticedate() {
-		return Noticedate;
+		return noticedate;
 	}
 	public void setNoticedate(String noticedate) {
-		Noticedate = noticedate;
+		this.noticedate = noticedate;
 	}
 	@Column(name = "thirdphonedheadprice")
 	public String getThirdphonedheadprice() {
@@ -453,26 +457,32 @@ public class RetotheSituationInfo implements java.io.Serializable {
 	public void setThirdverifyprice(String thirdverifyprice) {
 		this.thirdverifyprice = thirdverifyprice;
 	}
-	@Column(name = "Thirdcallprices")
+	@Column(name = "thirdcallprices")
 	public String getThirdcallprices() {
-		return Thirdcallprices;
+		return thirdcallprices;
 	}
 	public void setThirdcallprices(String thirdcallprices) {
-		Thirdcallprices = thirdcallprices;
+		this.thirdcallprices = thirdcallprices;
 	}
-	@Column(name = "Telephoneparty")
+	@Column(name = "telephoneparty")
 	public String getTelephoneparty() {
-		return Telephoneparty;
+		return telephoneparty;
 	}
 	public void setTelephoneparty(String telephoneparty) {
-		Telephoneparty = telephoneparty;
+		this.telephoneparty = telephoneparty;
 	}
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}              
-
-	          
-
-
-
+	@Column(name = "inputtime")
+	public Date getInputtime() {
+		return inputtime;
+	}
+	public void setInputtime(Date inputtime) {
+		this.inputtime = inputtime;
+	}
+	@Column(name = "createrName")
+	public String getCreaterName() {
+		return createrName;
+	}
+	public void setCreaterName(String createrName) {
+		this.createrName = createrName;
+	}
 }

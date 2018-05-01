@@ -67,12 +67,12 @@
 										</tr>
 								</thead>
 								<tbody>
-										<tr ng-repeat="prod in whcars">
+										<tr ng-repeat="prod in entrys">
 										        <td>{{prod.inputtime}}</td>
-										        <td>{{prod.carName}}</td>
-										        <td>{{prod.inputtime}}</td>
-												<td>{{prod.createrName}}</td>
-												<td>{{prod.createrName}}</td>
+										        <td>{{prod.createrName}}</td>
+										        <td>{{prod.reportedunit}}</td>
+												<td>{{prod.reportedmodels}}</td>
+												<td>{{prod.VINNO}}</td>
 												<td>
 										          <a ng-click="goedit(prod.carId);" href="javascript:;" title="修改"><img src="../images/edit.png" alt=""></a>
 										          <a ng-click="godel(prod.carId);" href="javascript:;" title="删除"><img src="../images/delete.png" alt=""></a>
@@ -234,7 +234,7 @@ dataEntryApp2.config(function($provide) {
 	      this.$get = function() {
 	    	  var factory = {};
 	    	  factory.prodQueryList = function($scope, $http) {
-	     		  $http.get("/warehouse/queryCars.do").success(
+	     		  $http.get("/warehouse/queryDataEntrys.do").success(
 	    			    function (response) {
 	  		    	        //数据源
 	  		    	    	$scope.data = response.jsondata;
@@ -246,9 +246,9 @@ dataEntryApp2.config(function($provide) {
 	  		    	    	$scope.selPage = 1;
 	  		    	    	//设置表格数据源(分页)
 	  		    	    	$scope.setData = function () {
-	  		    	    	$scope.whcars = $scope.data.slice(($scope.pageSize * ($scope.selPage - 1)), ($scope.selPage * $scope.pageSize));//通过当前页数筛选出表格当前显示数据
+	  		    	    	$scope.entrys = $scope.data.slice(($scope.pageSize * ($scope.selPage - 1)), ($scope.selPage * $scope.pageSize));//通过当前页数筛选出表格当前显示数据
 	  		    	    	}
-	  		    	    	$scope.whcars = $scope.data.slice(0, $scope.pageSize);
+	  		    	    	$scope.entrys = $scope.data.slice(0, $scope.pageSize);
 	  		    	    	//分页要repeat的数组
 	  		    	    	for (var i = 0; i < $scope.newPages; i++) {
 	  		    	    	$scope.pageList.push(i + 1);
@@ -299,15 +299,6 @@ dataEntryApp2.service('ProdService', function(ProdQueryListService){
 dataEntryApp2.controller('dataEntryCtrl2', function($scope,ProdService,$http) {
    //初始化查询
 	ProdService.queryList($scope, $http);
-	$http.get("/warehouse/queryCarCeries.do").success(
-		    function (response) {
-		    	$scope.carseries = response.jsondata;
-		        }
-		    );
-	//点击按钮查询
-    $scope.queryList = function() {
-    	ProdService.queryList($scope, $http);
-    }
     $scope.goedit = function(carId) {
     	window.location.href = "carEdit.html?carId="+carId;
     }

@@ -4,6 +4,7 @@ import ins.framework.dao.GenericDaoHibernate;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jxl.Sheet;
@@ -134,7 +135,7 @@ public class WareHouseServiceSpringImpl extends GenericDaoHibernate<WhCarSeries,
 		}
 	}
 
-	public void setBasicDataByExcel(File file) {
+	public void setBasicDataByExcel(File file, String userName) {
 		// TODO Auto-generated method stub
 		List<RetotheSituationInfo> basicDataByExcel = new ArrayList<RetotheSituationInfo>();
         try {
@@ -209,6 +210,8 @@ public class WareHouseServiceSpringImpl extends GenericDaoHibernate<WhCarSeries,
                 	ionInfo.setThirdverifyprice(rs.getCell(53, i+1).getContents());
                 	ionInfo.setThirdcallprices(rs.getCell(54, i+1).getContents());
                 	ionInfo.setTelephoneparty(rs.getCell(55, i+1).getContents());
+                	ionInfo.setCreaterName(userName);
+                	ionInfo.setInputtime(new Date());
                 	basicDataByExcel.add(ionInfo);
                 	
             }
@@ -218,5 +221,31 @@ public class WareHouseServiceSpringImpl extends GenericDaoHibernate<WhCarSeries,
             e.printStackTrace();
         } 
         
+	}
+
+	/**
+	 * 
+	 */
+	public List<RetotheSituationInfo> findRetotheSituationInfoByAll(String reportedNumber, Object object,Object object2, Object object3) {
+		QueryRule qr = QueryRule.getInstance();
+		if(reportedNumber!=null&&!"".equals(reportedNumber)){
+			qr.addEqual("reportedNumber", new Long(reportedNumber));
+		}
+//		if(carserId!=null&&!"".equals(carserId)){
+//			qr.addEqual("carserId", new Long(carserId));
+//		}
+//		if(accessoryName!=null&&!"".equals(accessoryName)){
+//			qr.addLike("accessoryName", accessoryName+"%");
+//		}
+//		if(accessoryStandPrice!=null&&!"".equals(accessoryStandPrice)){
+//			qr.addGreaterThan("accessoryStandPrice", accessoryStandPrice);
+//		}
+		List<RetotheSituationInfo> list  = super.find(RetotheSituationInfo.class,qr);
+		return list;
+	}
+
+	public RetotheSituationInfo findRetotheSituationInfoById(String reportedNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

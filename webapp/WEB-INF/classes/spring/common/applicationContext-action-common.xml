@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+ 	
+ 	<!-- 公共请求action -->
+ 	<bean id="commonAction" class="com.ysyl.common.web.CommonAction" scope="prototype"/>
+ 	<!-- 短信验证action -->
+ 	<bean id="verifyAction" class="com.ysyl.common.verify.web.VerifyAction" scope="prototype"/>
+	
+</beans>

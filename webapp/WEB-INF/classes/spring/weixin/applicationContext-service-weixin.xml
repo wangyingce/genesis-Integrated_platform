@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	<bean id="weiXinUserInfoService"
+		class="com.ysyl.weixin.focusUser.service.spring.WeiXinUserInfoServiceSpringImpl" />
+		
+	<bean id="weiXinOrderInfoService"
+		class="com.ysyl.weixin.order.service.spring.WeiXinOrderInfoServiceSpringImpl" />
+		
+	<!-- 商户 -->	
+	<bean id="merchantService"
+		class="com.ysyl.weixin.merchant.service.spring.MerchantServiceSpringImpl" />
+	
+	<!-- 消息 -->
+	<bean id="wxMessageService" class="com.ysyl.weixin.message.service.spring.WxMessageServiceSpringImpl" />
+	<bean id="weiXinPayService" class="com.ysyl.weixin.pay.service.spring.WeiXinPayServiceSpringImpl" />
+	<bean id="weiXinConfigService" class="com.ysyl.weixin.config.service.spring.WeiXinConfigServiceSpringImpl" />
+	
+</beans>

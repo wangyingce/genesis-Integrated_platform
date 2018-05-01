@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+ 	
+ 	<!-- 登录请求action -->
+ 	<bean id="loginAction" class="com.ysyl.backstage.login.web.LoginAction" scope="prototype"/>
+ 	<!-- 登录请求action -->
+ 	<bean id="userInfoAction" class="com.ysyl.backstage.login.web.UserInfoAction" scope="prototype"/>	
+ 	<!-- 商品action -->
+ 	<bean id="productAction" class="com.ysyl.backstage.product.web.ProductAction" scope="prototype"/>
+ 	<!-- 品牌action -->
+ 	<bean id="brandAction" class="com.ysyl.backstage.brand.web.BrandAction" scope="prototype"/>	
+ 	<!-- 订单action -->
+ 	<bean id="orderAction" class="com.ysyl.backstage.order.web.OrderAction" scope="prototype"/>
+ 	<!-- 订单action -->
+ 	<bean id="advertAction" class="com.ysyl.backstage.advert.web.AdvertAction" scope="prototype"/>
+ 	<!-- 仓库系统 -->
+ 	<bean id="warehouseAction" class="com.ysyl.backstage.warehouse.web.WareHouseAction" scope="prototype"/>
+</beans>
