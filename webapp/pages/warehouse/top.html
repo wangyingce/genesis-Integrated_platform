@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理系统</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/jquery.wysiwyg.old-school.css">
+
+<!-- jQuery AND jQueryUI -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<link rel="stylesheet" href="css/style2.css">
+<script type="text/javascript" src="/pages/weixin/merchant/resource/js/jquery.js"></script>
+<script type="text/javascript" src="/pages/weixin/merchant/resource/js/jquery.validate.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+</head>
+<script>
+$(function() { 
+    //加在用户信息
+	$.ajax({
+        type: "get", 
+           url: "/login/initIndex.do", 
+           data: {},
+           dataType: "json",
+           success: function(data) {
+                      if(data!=null){
+                    	  document.getElementById("ware-index_user-info").innerHTML = data.userName;
+                      }
+                     },
+  });
+  //用户退出注销
+   $("#user-quit").click(function() {
+       if(confirm("确定退出吗")){
+           $.ajax({
+           type: "get", 
+           url: "/login/quitUser.do", 
+           data: {},
+           dataType: "json",
+           success: function(data) {
+                        if(data!=null){
+                    	  window.parent.parent.location.href = "login.html";
+                        }
+                     },
+           });
+       }
+   });
+});
+</script>
+<body>
+<!--    顶部   -->
+<div id="head">
+		<div class="left"> <a class="button profile"><img src="images/huser.png" alt=""></a> Hi,<a id="ware-index_user-info"></a> </div>
+		<div class="right"> <a class="button profile" id="user-quit"><img src="images/quit.png" alt=""></a></div>
+</div>
+</body>
+</html>
+

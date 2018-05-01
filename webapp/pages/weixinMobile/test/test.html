@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>test拍照</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link rel="stylesheet" href="/style/weixinMobile/css/weui.css"/>
+    <link rel="stylesheet" href="/style/weixinMobile/example.css"/>
+    <script src="/common/js/jquery/js/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script>
+$(function() {
+	
+	$.ajax({     
+        type: "get",     
+        url: "/wxc/cwx.do",    
+        data: {
+        	url:location.href.split('#')[0]
+        }, 
+        contentType: "application/json; charset=utf-8",     
+        dataType: "json",     
+        success: function(data) {
+        	wx.config({
+        	    debug: data.debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        	    appId: data.appId,// 必填，公众号的唯一标识
+        	    timestamp: data.timestamp, // 必填，生成签名的时间戳
+        	    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+        	    signature: data.signature,// 必填，签名，见附录1
+        	    jsApiList: data.jsApiList // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        	});
+        },     
+        error: function(err) {     
+            alert("error:"+err); 
+        }     
+    }); 
+	
+	
+
+	var yu1="";
+	var yu2="";
+	$("#yulan").click(function() {
+	if(yu1==""){
+		yu1=img1;
+	}
+	if(yu2==""){
+		yu2=img2;
+	}
+	//alert(yu1);
+	//alert(yu2);
+		wx.previewImage({
+		    current: yu1, // 当前显示图片的http链接
+		    urls: [yu1,yu2] // 需要预览的图片http链接列表
+		});
+	});
+	
+	var img1='http://www.lmeij.com/pages/weixinMobile/test/1.jpg';
+	var img2='http://www.lmeij.com/pages/weixinMobile/test/2.jpg';
+	
+	$("#up1").click(function() {
+		wx.chooseImage({
+		    count: 1, // 默认9
+		    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+		    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+		    success: function (res) {
+		        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+		        img1 = localIds[0];
+		        $("#up1").attr('src',localIds[0]);
+		    }
+		});		
+	});
+	
+	$("#up2").click(function() {
+		wx.chooseImage({
+		    count: 1, // 默认9
+		    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+		    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+		    success: function (res) {
+		        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+		        img2 = localIds[0];
+		        $("#up2").attr('src',localIds[0]);
+		    }
+		});
+	});
+	
+	$("#btn1").click(function() {
+		wx.uploadImage({
+		    localId: img1.toString(), // 需要上传的图片的本地ID，由chooseImage接口获得
+		    isShowProgressTips: 1, // 默认为1，显示进度提示
+		    success: function (res) {
+		        var serverId = res.serverId; // 返回图片的服务器端ID
+		        yu1=serverId.toString();
+		    }
+		});
+	});
+	
+	$("#btn2").click(function() {
+		wx.uploadImage({
+		    localId: img2.toString(), // 需要上传的图片的本地ID，由chooseImage接口获得
+		    isShowProgressTips: 1, // 默认为1，显示进度提示
+		    success: function (res) {
+		        var serverId = res.serverId; // 返回图片的服务器端ID
+		        yu2=serverId.toString();
+		    }
+		});
+	});
+	
+	
+
+	/*
+	wx.uploadImage({
+	    localId: '', // 需要上传的图片的本地ID，由chooseImage接口获得
+	    isShowProgressTips: 1, // 默认为1，显示进度提示
+	    success: function (res) {
+	        var serverId = res.serverId; // 返回图片的服务器端ID
+	    }
+	});
+	
+	wx.downloadImage({
+	    serverId: '', // 需要下载的图片的服务器端ID，由uploadImage接口获得
+	    isShowProgressTips: 1, // 默认为1，显示进度提示
+	    success: function (res) {
+	        var localId = res.localId; // 返回图片下载后的本地ID
+	    }
+	});
+	*/
+
+	
+});
+	</script>
+  </head>
+  
+	<body>
+	拍摄图片并预览1<input type="button" value="上传图片1" id="btn1"/>
+		<div class="bd">
+                        <img alt="" src="1.jpg" id="up1" height="200" width="200">
+            </div>
+            拍摄图片并预览2<input type="button" value="上传图片2" id="btn2"/>
+            <div class="bd">
+                        <img alt="" src="2.jpg" id="up2" height="200" width="200">
+            </div>
+           <input type="button" value="大图预览" id="yulan"/>
+</body>
+</html>

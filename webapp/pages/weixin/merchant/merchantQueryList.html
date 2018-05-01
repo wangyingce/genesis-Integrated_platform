@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>商户查询</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" href="/common/js/jquery/css/ui.jqgrid.css">
+<link rel="stylesheet" href="/style/weixin/css/weui.min.css">
+<script src="/common/js/jquery/js/jquery.min.js"></script>
+<script src="/common/js/jquery/js/jquery.jqGrid.min.js"></script>
+<script src="/common/js/jquery/js/i18n/grid.locale-cn.js"></script>
+<script src="./js/merchantQueryList.js"></script>
+</head>
+
+<body>
+	<div class="page">
+		<div class="hd">
+			<h1 class="page_title">商户查询</h1>
+		</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">商户名称</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="shanghu" />
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">查询时间 从</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="datetime-local" name="queryDate1" id="queryDate1"/>
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">查询时间 到</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="datetime-local" name="queryDate2" id="queryDate2"/>
+				</div>
+			</div>
+			<input type="button" value="查询" id="queryBtn"
+				class="weui_btn weui_btn_primary" />
+		</div>
+	</div>
+	<table id="infos"></table>
+</body>
+</html>

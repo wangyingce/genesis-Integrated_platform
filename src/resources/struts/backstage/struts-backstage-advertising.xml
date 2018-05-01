@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="advertising" extends="struts-default" namespace="/advertising">
+	<!-- 保存商品信息 -->
+	<action name="addAdvert" class="advertAction" method="addAdvert"></action>
+	<!-- 保存商品信息 -->
+	<action name="queryAdvertising" class="advertAction" method="queryAdvertising"></action>
+	<!-- 动态菜单息 -->
+	<action name="queryNavList" class="advertAction" method="queryNavList"></action>
+	</package>
+</struts>

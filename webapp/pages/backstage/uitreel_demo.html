@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>uitreel.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script src="http://cdn.bootcss.com/angular.js/1.5.0/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-tree-control.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/tree-control.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/tree-control-attribute.css">
+
+  </head>
+  
+  <body ng-app="brandApp" ng-controller="brandsCtrl">
+    <!-- as a Dom element -->
+<treecontrol class="tree-classic"
+   tree-model="dataForTheTree"
+   options="treeOptions"
+   on-selection="showSelected(node)"
+   selected-node="node1">
+   {{node.name}} 
+</treecontrol>
+<!-- as an attribute 
+<div treecontrol class="tree-classic"
+   tree-model="dataForTheTree"
+   options="treeOptions"
+   on-selection="showSelected(node)"
+   selected-node="node1">
+   employee: {{node.name}} age {{node.age}}
+</div>-->
+  </body>
+</html>
+<script>
+var brandApp = angular.module("brandApp", ['treeControl']);
+brandApp.controller('brandsCtrl', function($scope, $http) {
+$scope.treeOptions = {
+    nodeChildren: "children",
+    dirSelectable: true,
+    injectClasses: {
+        ul: "a1",
+        li: "a2",
+        liSelected: "a7",
+        iExpanded: "a3",
+        iCollapsed: "a4",
+        iLeaf: "a5",
+        label: "a6",
+        labelSelected: "a8"
+    }
+}
+/**$scope.dataForTheTree =
+[
+    { "name" : "Joe", "age" : "21", "children" : [
+        { "name" : "Smith", "age" : "42", "children" : [] },
+        { "name" : "Gary", "age" : "21", "children" : [
+            { "name" : "Jenifer", "age" : "23", "children" : [
+                { "name" : "Dani", "age" : "32", "children" : [] },
+                { "name" : "Max", "age" : "34", "children" : [] }
+            ]}
+        ]}
+    ]},
+    { "name" : "Albert", "age" : "33", "children" : [] },
+    { "name" : "Ron", "age" : "29", "children" : [] }
+];
+});**/
+$scope.dataForTheTree =
+[
+    { "name" : "商城分类列表", "age" : "21", "children" : [
+        { "name" : "蔬菜水果", "age" : "21", "children" : [
+            { "name" : "蔬菜", "age" : "23", "children" : []},
+            { "name" : "苹果", "age" : "23", "children" : []},
+            { "name" : "大蒜", "age" : "23", "children" : []}
+        ]},
+        { "name" : "手机数码", "age" : "21", "children" : [
+            { "name" : "手机", "age" : "23", "children" : []},
+            { "name" : "照相机", "age" : "23", "children" : []},
+            { "name" : "电脑", "age" : "23", "children" : []}
+        ]}
+    ]},
+];
+}); 
+
+
+</script>

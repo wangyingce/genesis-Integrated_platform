@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<!-- 摄影工作室 -->
+	<package name="photograph" extends="struts-default" namespace="/photograph">
+		<!-- 用户注册初始化 -->
+		<action name="registPhotoGraph" class="photoGraphAction" method="registPhotoGraph">
+			<result name="success" >
+				/pages/mobile/photograph/PgRegist.jsp
+			</result>
+			<result name="registed" type="redirect">
+				<param name="location">
+					/photograph/submitRegistPhotoGraph.do?yyUser.owner=${yyUser.owner}&amp;yyUser.inType=${yyUser.inType}&amp;yyUser.inKey=${yyUser.inKey}&amp;yyUser.userCode=${yyUser.userCode}
+				</param>
+				<param name="parse">true</param>
+			</result>
+		</action>
+		
+		<!-- 获取短信验证码 -->
+		<action name="getMessageIdCode" class="photoGraphAction" method="getMessageIdCode"></action>
+		
+		<!-- 校验短信验证码 -->
+		<action name="checkIdCode" class="photoGraphAction" method="checkIdCode"></action>
+		
+		<!-- 用户注册提交 -->
+		<action name="submitRegistPhotoGraph" class="photoGraphAction" method="submitRegistPhotoGraph">
+			<result name="success" >
+				/pages/mobile/photograph/PgCheckOrder.jsp
+			</result>
+		</action>
+		
+		<!-- 初始拍照化详细说明信息 -->
+		<action name="initCheckOrderInfo" class="photoGraphAction" method="initCheckOrderInfo"></action>
+		
+		<!-- 预约信息提交，之后调用微信支付 -->
+		<action name="submitPgCheckOrder" class="photoGraphAction" method="submitPgCheckOrder"></action>
+		
+		<!-- 初始化我的订单 -->
+		<action name="initMyOrder" class="photoGraphAction" method="initMyOrder">
+			<result name="success" >
+				/pages/mobile/photograph/PgMyOrder.jsp
+			</result>
+		</action>
+		
+		<!-- 页面点击更换订单状态切换不同订单类型 -->
+		<action name="initMyChangeOrder" class="photoGraphAction" method="initMyChangeOrder"></action>
+		
+		<!-- 取消订单 -->
+		<action name="cancelMyOrder" class="photoGraphAction" method="cancelMyOrder"></action>
+		
+		<!-- 删除订单 -->
+		<action name="deleteMyOrder" class="photoGraphAction" method="deleteMyOrder"></action>
+		
+		<!-- 订单支付 -->
+		<action name="payMyOrder" class="photoGraphAction" method="payMyOrder"></action>
+		
+		<!-- 订单支付 -->
+		<action name="sofo" class="photoGraphAction" method="showOrderForOwner">
+			<result name="success" >
+				/pages/mobile/photograph/PgOrderConfirm.jsp
+			</result>
+		</action>
+		
+		<!-- 初始化我的设置 -->
+		<action name="initMySet" class="photoGraphAction" method="initMySet">
+			<result name="success" >
+				/pages/mobile/photograph/PgMySet.jsp
+			</result>
+		</action>
+		
+		<!-- 打开首页 -->
+		<action name="showIndex" class="photoGraphAction" method="showIndex">
+			<result name="success" >
+				/pages/mobile/photograph/PgIndex.jsp
+			</result>
+		</action>
+		
+		<!-- 商户确认订单 -->
+		<action name="confirmOrder" class="photoGraphAction" method="confirmOrder"></action>
+		
+		<!-- 获取我的底片 -->
+		<action name="getMyPhoto" class="photoGraphAction" method="getMyPhoto">
+			<result name="success" >
+				/pages/mobile/photograph/PgMyPhoto.jsp
+			</result>
+		</action>
+		
+		<!-- 获取学生证件号 -->
+		<action name="getStudentPhoto" class="photoGraphAction" method="getStudentPhoto"></action>
+		
+	</package>
+</struts>

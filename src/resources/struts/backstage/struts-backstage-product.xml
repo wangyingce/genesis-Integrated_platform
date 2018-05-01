@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="product" extends="struts-default" namespace="/product">
+	<!-- 保存商品信息 -->
+	<action name="addProduct" class="productAction" method="addProduct"></action>
+	<!-- 保存商品信息 -->
+	<action name="queryProductList" class="productAction" method="queryProductList"></action>
+	<!--  -->
+    <action name="queryGenusTree" class="productAction" method="queryGenusTree"></action>
+    <!--  -->
+    <action name="queryGenusData" class="productAction" method="queryGenusData"></action>
+    <!--  -->
+    <action name="updateGenusData" class="productAction" method="updateGenusData"></action>
+    <!--  -->
+    <action name="queryProduct" class="productAction" method="queryProduct"></action>
+    <!--  -->
+    <action name="delProduct" class="productAction" method="delProduct"></action>
+	</package>
+</struts>

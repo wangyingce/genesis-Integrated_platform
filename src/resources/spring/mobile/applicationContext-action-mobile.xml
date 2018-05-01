@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+ 	
+ 	<!-- 移动商店相关action -->
+ 	<bean id="mobileStoreAction" class="com.ysyl.mobile.wxstore.web.MobileStoreAction" scope="prototype"/>
+ 	
+ 	<!-- 支付相关action -->
+ 	<bean id="payAction" class="com.ysyl.mobile.pay.web.PayAction" scope="prototype"/>
+ 	
+ 	<!-- 摄影工作室相关action begin-->
+ 	<bean id="photoGraphAction" class="com.ysyl.mobile.photograph.web.PhotoGraphAction" scope="prototype"/>
+	
+	
+	<!-- 摄影工作室相关action end-->
+	
+	<!-- 点餐相关 action begin -->
+	<bean id="orderFoodAction" class="com.ysyl.mobile.orderFood.web.OrderFoodAction" scope="prototype"/>
+	<!-- 点餐相关 action end -->
+</beans>

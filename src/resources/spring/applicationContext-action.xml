@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	<import resource="classpath:spring/weixin/applicationContext-action-weixin.xml" />
+	
+	<import resource="classpath:spring/mobile/applicationContext-action-mobile.xml" />
+	
+	<import resource="classpath:spring/common/applicationContext-action-common.xml" />
+	
+	<import resource="classpath:spring/backstage/applicationContext-action-backstage.xml" />
+</beans>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>店铺信息</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <script src="/common/js/jquery/js/jquery.min.js"></script>
+    <link rel="stylesheet"  href="/style/weixin/css/weui.min.css">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="author" content="haibao" />
+    <meta name="url" content="http://smwell.sinaapp.com/" />
+    <link rel="stylesheet" href="css/style.css" />
+	<script>
+var cansubmit = "true";
+$(function() {     
+	var rqstUrl=window.location.href;
+	var srsCdChk=/^([\u4E00-\u9FA5]|\w)*$/;
+    $.ajax({
+              type: "get", 
+              url: "/merchant/loadMerchant.do", 
+              data: {rqstUrl:rqstUrl},
+              dataType: "json",
+              success: function(data) {
+            //  alert(data.nickName); 
+                         document.getElementById("merchantId").value = data.merchantId;
+                         document.getElementById("merchantId").readOnly=true;
+                         document.getElementById("nickName").value = data.nickName;
+                         document.getElementById("unionid").value = data.unionid;
+                         document.getElementById("oldqrcodeimg").src = data.qrcodePath;
+                         document.getElementById("corporation").value = data.corporation;
+                         document.getElementById("identifyNumber").value = data.identifyNumber;
+                         document.getElementById("bankCname").value = data.bankCname;
+                         document.getElementById("account").value = data.account;
+                         document.getElementById("payBtn").value = "更新";
+                         //document.getElementById("h1show").value = "请更您的店铺信息";
+                         $('#h1show').hide();
+                         $('#h2show').show();
+                         $('#oldqrcode').show();
+                         },
+              });     
+     //页面基本校验         
+     $(document).ready(function(){
+            //检查nickName
+            $("#nickName").blur(function nickNamec(){
+                       if($("#nickName").val()==""){
+                                    $("#nickName").css("background-color","#FAF0E6");
+                                    $("#nickName").attr("placeholder","店铺名称不能为空");
+                        }else{
+                                  $("#nickName").css("background-color","#FFFFFF");
+                                  $("#nickName").attr("placeholder","");
+                        }
+            });
+            $("#unionid").blur(function nickNamec(){
+                       if($("#unionid").val()==""){
+                                    $("#unionid").css("background-color","#FAF0E6");
+                                    $("#unionid").attr("placeholder","手机号不能为空");
+                                    $("#unionidcheck").hide();
+                        }else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test($("#unionid").val())){
+                                  $("#unionid").css("background-color","#FAF0E6");
+                                  $("#unionidcheck").show();
+                        }else{
+                                  $("#unionid").css("background-color","#FFFFFF");
+                                  $("#unionid").attr("placeholder","");
+                                  $("#unionidcheck").hide();
+                        }
+            });
+            $("#corporation").blur(function(){
+            //检查corporation
+                       if($("#corporation").val()==""){
+                                $("#corporation").css("background-color","#FAF0E6");
+                                $("#corporation").attr("placeholder","注册人不能为空");
+                                
+                        }else{
+                                  $("#corporation").css("background-color","#FFFFFF");
+                                  $("#corporation").attr("placeholder","");
+                        }
+                });
+                $("#identifyNumber").blur(function(){
+                //检查identifyNumber
+                       if($("#identifyNumber").val()==""){
+                                $("#identifyNumber").css("background-color","#FAF0E6");
+                                $("#identifyNumber").attr("placeholder","身份证不能为空");
+                                
+                        }else{
+                                  $("#identifyNumber").css("background-color","#FFFFFF");
+                                  $("#identifyNumber").attr("placeholder","");
+                        }
+                });
+                $("#bankCname").blur(function(){
+                //检查bankCname
+                        if($("#bankCname").val()==""){
+                                $("#bankCname").css("background-color","#FAF0E6");
+                                $("#bankCname").attr("placeholder","开户行不能为空");
+                                
+                        }else{
+                                  $("#bankCname").css("background-color","#FFFFFF");
+                                  $("#bankCname").attr("placeholder","");
+                        }
+                });
+                $("#account").blur(function(){
+                //检查account
+                        if($("#account").val()==""){
+                                $("#account").css("background-color","#FAF0E6");
+                                $("#account").attr("placeholder","收款卡号不能为空");
+                                
+                        }else{
+                                  $("#account").css("background-color","#FFFFFF");
+                                  $("#account").attr("placeholder","");
+                        }
+                });
+     });   
+     
+    $("#payBtn").click(function() {
+         chkdata();
+         if(cansubmit!="yes"){
+         $('#canscheck').show();
+         return false;
+         }
+    	$("#payBtn").addClass("weui_btn_disabled"); 
+    	$("#payBtn").attr("disabled","disabled"); 
+        var merchantId = $("#merchantId").val();
+        var nickName = $("#nickName").val();
+        var corporation =  $("#corporation").val();
+        var identifyNumber = $("#identifyNumber").val();
+        var bankCname = $("#bankCname").val();
+        var account = $("#account").val();
+                var unionid = $("#unionid").val();
+        
+        $.ajax({     
+            type: "get",     
+            url: "/merchant/saveMerchant.do",    
+            data: {
+            	merchantId:merchantId,
+            	identifyNumber:identifyNumber,
+            	nickName:encodeURI(nickName), 
+            	corporation:encodeURI(corporation),
+            	bankCname:encodeURI(bankCname),
+            	account:account,
+            	            	unionid:unionid
+            	
+            }, 
+            //contentType: "application/json; charset=utf-8",  
+            //contentType: "application/x-www-form-urlencoded; charset=utf-8",    
+            dataType: "json",     
+            success: function(data) {
+                         document.getElementById("merchantId").value = data.merchantId;
+                         document.getElementById("nickName").value = data.nickName;
+                         document.getElementById("qrcodeimg").src = data.qrcodePath;
+                         document.getElementById("corporation").value = data.corporation;
+                         document.getElementById("identifyNumber").value = data.identifyNumber;
+                         document.getElementById("bankCname").value = data.bankCname;
+                         document.getElementById("account").value = data.account;
+                                                  document.getElementById("unionid").value = data.unionid;
+                         
+                        /* var ifrm = data.qrcodePath;
+                         alert(ifrm);
+                         ifrm = ifrm.substring(0,ifrm.indexOf("/qrcode/")) ;
+                          alert(ifrm);
+                          ifrm = ifrm +"/qrcode/qrcode.html"
+                         document.getElementById("newPage").src = ifrm;
+                          alert( document.getElementById("newPage").src);*/
+                         $('#showOne').hide();
+                         $('#showTwo').show();
+                         var $info=$('#info'),$zhiwen=$('#zhiwen'),$line=$('#line');
+                         $info.stop().text('二维码生成中...');
+				         $line.stop().show();
+				         document.querySelector('#line').addEventListener('webkitAnimationEnd', function () {
+		                 $info.text('二维码生成完毕');
+					     $line.hide();
+					     $zhiwen.hide();
+                         $('#qrcodeare').show();
+					     //setTimeout(function(){$info.text('请惠存您的二维码');},800);
+					     },false);
+            }  
+        });     
+        return false;     
+    });     
+});
+
+ function chkdata(){
+ cansubmit = "yes";
+                       if($("#account").val()==""){
+                                $("#account").css("background-color","#FAF0E6");
+                                $("#account").attr("placeholder","收款卡号不能为空");
+                                 cansubmit = "no";
+                        }else{
+                                  $("#account").css("background-color","#FFFFFF");
+                                  $("#account").attr("placeholder","");
+                        }
+                        if($("#bankCname").val()==""){
+                                $("#bankCname").css("background-color","#FAF0E6");
+                                $("#bankCname").attr("placeholder","开户行不能为空");
+                                cansubmit = "no";
+                        }else{
+                                  $("#bankCname").css("background-color","#FFFFFF");
+                                  $("#bankCname").attr("placeholder","");
+                        }
+                        if($("#identifyNumber").val()==""){
+                                $("#identifyNumber").css("background-color","#FAF0E6");
+                                $("#identifyNumber").attr("placeholder","身份证不能为空");
+                                cansubmit = "no";
+                        }else{
+                                  $("#identifyNumber").css("background-color","#FFFFFF");
+                                  $("#identifyNumber").attr("placeholder","");
+                        }
+                        if($("#corporation").val()==""){
+                                $("#corporation").css("background-color","#FAF0E6");
+                                $("#corporation").attr("placeholder","注册人不能为空");
+                                cansubmit = "no";
+                        }else{
+                                  $("#corporation").css("background-color","#FFFFFF");
+                                  $("#corporation").attr("placeholder","");
+                        }
+                        if($("#unionid").val()==""){
+                                    $("#unionid").css("background-color","#FAF0E6");
+                                    $("#unionid").attr("placeholder","手机号不能为空");
+                                    $("#unionidcheck").hide();
+                                    cansubmit = "no";
+                        }else if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test($("#unionid").val())){
+                                  $("#unionid").css("background-color","#FAF0E6");
+                                  $("#unionidcheck").show();
+                                   cansubmit = "no";
+                        }else{
+                                  $("#unionid").css("background-color","#FFFFFF");
+                                  $("#unionid").attr("placeholder","");
+                                  $("#unionidcheck").hide();
+                        }
+                        if($("#nickName").val()==""){
+                                    $("#nickName").css("background-color","#FAF0E6");
+                                    $("#nickName").attr("placeholder","店铺名称不能为空");
+                                    cansubmit = "no";
+                        }else{
+                                  $("#nickName").css("background-color","#FFFFFF");
+                                  $("#nickName").attr("placeholder","");
+                        }
+ }
+	</script>
+  </head>
+  
+	<body>
+		<div class="page" id="showOne">
+			<div class="hd">
+				<h1 class="page_title" id ="h1show" >请填写您的信息</h1>
+				<h1 class="page_title" id ="h2show"  style="display: none;">请更新您的信息</h1>
+			</div>
+			<div class="bd">
+				<div class="weui_cells weui_cells_form">
+					<div class="weui_cell" style="display: none;">
+						<div class="weui_cell_hd">
+							<label class="weui_label">店铺编号</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+								<input class="weui_input" type="text" name="merchantId" id="merchantId"/>
+								<input class="weui_input" type="text" name="cans" id="cans" value="false"/>
+						</div>
+					</div>
+					<div class="weui_cell">
+				        <div class="weui_cell_hd">
+					         <label class="weui_label">店铺名称</label>
+				         </div>
+				     <div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="shanghu" id="nickName"  maxlength="50"/>
+				     </div>
+			        </div>
+			        <div class="weui_cell" id="nickNamecheck" style="display: none;">
+			        <div class="mmessage">店铺名称重复,请更换一个名称</div> 
+			        </div>
+			        <div class="weui_cell">
+				        <div class="weui_cell_hd">
+					         <label class="weui_label">手机号</label>
+				         </div>
+				     <div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="number" name="unionid" id="unionid"  maxlength="11" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"  onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+				     </div>
+			        </div>
+			        <div class="weui_cell" id="unionidcheck" style="display: none;">
+			        <div class="mmessage">不是手机号，请重新输入</div> 
+			        </div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">注册人</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="corporation" id="corporation" maxlength="50"/>
+				</div>
+			</div>
+			<div class="weui_cell" id="corporationcheck" style="display: none;">
+			        <div class="mmessage">注册人不能包含特殊字符</div> 
+			</div>
+			
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">身份证</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="identifyNumber" id="identifyNumber"  maxlength="18" />
+				</div>
+			</div>
+			<div class="weui_cell" id="identifyNumbercheck" style="display: none;">
+			        <div class="mmessage">身份证不能包含特殊字符</div> 
+			</div>
+			
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">开户行</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="bankCname" id="bankCname"  maxlength="100" />
+				</div>
+			</div>
+			<div class="weui_cell" id="bankCnamecheck" style="display: none;">
+			        <div class="mmessage">开户行不能包含特殊字符</div> 
+			</div>
+			
+			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">收款卡号</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="number" name="account" id="account"  maxlength="30"  onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"  onkeyup="this.value=this.value.replace(/[, ]/g,'')"/>
+				</div>
+			</div>
+			<div class="weui_cell" id="accountcheck" style="display: none;">
+			        <div class="mmessage">收款卡号不能包含特殊字符</div> 
+			</div>
+			
+			<div class="weui_cell" id="oldqrcode" style="display: none;">
+				<div class="weui_cell_hd">
+					<label class="weui_label">二维码</label>
+				</div>
+				<div class="weui_cell_bd ">
+										<img id="oldqrcodeimg" src="" alt="" /> 
+				</div>
+			</div>
+					<br/>
+					<input type="button" value="提交" id="payBtn" 	class="weui_btn weui_btn_primary" />
+					<div class="weui_cell" id="canscheck" style="display: none;">
+			        <div class="mmessage" align="center">您填写的信息有误,请检查</div> 
+			        </div>
+						
+				</div>
+			</div>
+		</div>
+		<div class="box"  id="showTwo" style="display: none;">
+		<div id="finger">
+			<div id="finger_box">
+				<img id="zhiwen" src="images/zhiwen.png" alt="" />
+				<img id="line" src="images/line.png" alt="" /> 
+						<div id="qrcodeare" style="display: none;">
+										<img id="qrcodeimg" src="" alt="" /> 
+						</div>
+				<p id="info"></p>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

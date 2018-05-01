@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>快速预约</title>
+    
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styleysyl.css"/>
+   	<link rel="stylesheet" type="text/css" href="css/feedback-page.css" />
+   	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/photograph.js"></script>
+</head>
+<body>
+	<div class="bao">
+		<!--顶部-->
+		<header class="mui-bar mui-bar-nav you">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">快速预约</h1>
+		</header>
+		
+		<div class="mui-content bw">
+			<div class="headtitle">
+		  		预约说明：
+		    </div>
+		    <div class="midtitle">
+		    1、预约成功后订单不可更改，如需取消将产生订金损失，请留意退款规则。如未按预定日期到店，订单视为自动放弃，订金不予退还预约成功后订单不可更改，如需取消将产生订金损失，请留意退款规则。
+		    </div>	
+		</div>
+		<div class="bw h5">
+			<div class="input_row" >
+			    <span class="tdleft">姓名</span><span><img id="registericonName" class="registerinputicon"   src="images/registericon1.png"/></span>
+	      		<input type="text" id="registerName" name="registerName" value="输入姓名" />
+			</div>
+		  	<div class="input_row" >
+			  	<span class="tdleft">+86</span><span><img id="registericonNum" class="registerinputicon" src="images/registericon1.png"/></span>
+			    <input type="tel" id="registerMobile" name="registerMobile"  maxlength="11" value="输入手机号码" />
+			</div>
+			<div class="input_row" >
+			  	<input type="tel"  id="checkNum" style="width:40%;" name="checkNum" value="请输入验证码" />
+        		<input type="button" id="getNo-Btn" style="border-radius:2px;width:33%;height:29px" value="获取验证码" />
+			</div>
+			<div class="input_button1">
+      			<input type="button" id="payBtn" value="下一步" />
+    		</div>
+			<div class="h5 input_row">
+        		<img style="width:4%;" src="images/yesBtn.png"/>
+        		<span>点击"下一步",表示已同意<a href="#">《注册协议》</a></span>
+        		<br>
+        		<br>
+        		<label id="checkPhoneText" style="display:none;">手机号或类型不正确</label>
+        		<br>
+        		<br>
+    		</div>
+    		
+		</div>
+		<!--中部-->
+				
+		<!--底部-->
+		
+	<footer class="mui-bar mui-bar-footer" style="padding: 0;">
+		<ul>
+			<li class="active">
+				<a href="index.html">
+					 <span class="mui-icon mui-icon-home"></span>
+				</a>
+			</li>
+			<li>
+				<a href="compose.html">
+					 <span class="mui-icon mui-icon-compose"></span>
+				</a>
+			</li>
+			<li>
+				<a href="self.html">
+					 <span class="mui-icon mui-icon-contact"></span>
+				</a>
+			</li>
+			<li>
+				<a href="set.html">
+					 <span class="mui-icon mui-icon-gear"></span>
+				</a>
+			</li>
+		</ul>	
+	</footer>
+</div>
+</body>
+</html>

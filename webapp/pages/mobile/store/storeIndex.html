@@ -1,0 +1,86 @@
+﻿<html>
+<head>
+<meta charset="utf-8"/>
+<title>友商友良</title>
+<meta name="keywords"  content="DeathGhost" />
+<meta name="description" content="http://www.deathghost.cn" />
+<meta name="author" content="DeathGhost" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name='apple-touch-fullscreen' content='yes'>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="address=no">
+<link rel="icon" href="images/icon/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icon/apple-touch-icon-57x57-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icon/apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="196x196" href="images/icon/apple-touch-icon-196x196-precomposed.png">
+<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="/ysyl/pages/mobile/store/source/style.css" />
+<link rel="stylesheet" type="text/css" href="/ysyl/pages/mobile/store/source/swiper3.07.min.css" />
+<script src="/ysyl/pages/mobile/store/source/js/jquery.js"></script>
+<script src="/ysyl/pages/mobile/store/source/js/swiper.min.js"></script>
+<script src="/ysyl/pages/mobile/store/source/js/store.js"></script>
+<script src="/ysyl/pages/mobile/store/source/js/storeCommon.js"></script>
+<script src="/ysyl/common/js/ysylCommon.js"></script>
+<script>
+
+</script>
+</head>
+<body>
+<form action="" method="post" name="fm">
+<!--header-->
+<header>
+ <a href="#" class="location" id="welcome"></a>
+ <h1 id="storeName">小店</h1>
+ <a href="#" class="rt_searchIcon">&#37;</a>
+</header>
+<div class="height1">
+</div>
+<!--slide-->
+<div id="homePage">
+	<div id="slide">
+	  <div class="swiper-wrapper">
+	    <div class="swiper-slide">
+	     <a href="#">
+	      <img src="/ysyl/pages/mobile/store/source/upload/slide001.jpg"/>
+	     </a>
+	    </div>
+	    <div class="swiper-slide">
+	     <a href="#">
+	      <img src="/ysyl/pages/mobile/store/source/upload/slide002.jpg"/>
+	     </a>
+	    </div>
+	  </div>
+	  <div class="pagination"></div>  
+	</div>
+	<!--categoryList-->
+	<ul class="categoryLiIcon" id="waresClass"></ul>
+	<!--Tab:productList-->
+	<dl class="tab_proList">
+	 <dt id="waresTables">
+	  <a></a>
+	  <a></a>
+	  <a></a>
+	 </dt>
+	 <div id ="spdetails">
+	 </div>
+	</dl>
+	<!--floatCart-->
+	<div class="hoverCart">
+	 <a href="#" onclick="viewCargo();">0</a>
+	</div>
+	<!--fixedNav:footer-->
+	<div style="height:1.2rem;"></div>
+	<input type="hidden" id="shoppingCart"/>
+	<input type="hidden" id="storeId"/>
+	<input type="hidden" id="openId"/>
+	<nav>
+	 <a href="index.html" class="homeIcon">首页</a>
+	 <a href="#" class="categoryIcon">分类</a>
+	 <a href="#" class="cartIcon" onclick="viewCargo();">购物车</a>
+	 <a href="#" class="userIcon">我的</a>
+	</nav>
+</div>
+</form>
+</body>
+</html>

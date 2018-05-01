@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理系统</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/jquery.wysiwyg.old-school.css">
+
+<!-- jQuery AND jQueryUI -->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/min.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<script type="text/javascript" src="../js/main.js"></script>
+<!-- 引入angularjs -->
+<script src="http://cdn.bootcss.com/angular.js/1.5.0/angular.min.js"></script>
+<link rel="stylesheet" href="../css/style2.css">]
+</head>
+<body>
+
+
+
+<!--     内容      -->
+<div id="content" class="white">
+		<h1><img src="../images/posts.png" alt="">车型管理</h1>
+		<!--操作栏-->
+		<div class="bloc">
+				<div class="title"> 操作 <a class="toggle"></a></div>
+				<div class="content dashboard">
+						<div class="center" style="display: block; width: auto;"> 
+						 <a href="carEdit.html" class="shortcut w500 h360"><img src="../images/glyph-add.png" alt="" width="48" height="48"> 添加车型 </a> 
+								<div class="cb"></div>
+						</div>
+				</div>
+		</div>
+		<div class="bloc" ng-app="carListApp" ng-controller="carListsCtrl">
+		<div class="title">车系： <a class="toggle"></a></div>
+				<select ng-change="queryList();" id="carserId" ng-model="carserng"><option ng-repeat="cnm in carseries">{{cnm.carserId}}-{{cnm.carserName}}</option></select>
+				<div class="content">
+						<table>
+								<thead>
+										<tr>
+												<th>图片</th>
+												<th>车型名称</th>
+												<th>官方指导价（元）</th>
+												<th>创建时间</th>
+												<th>创建人</th>
+												<th>操作</th>
+										</tr>
+								</thead>
+								<tbody>
+										<tr ng-repeat="prod in whcars">
+												<td><a href={{prod.carImgPath}} class="zoombox"><img src={{prod.carImgPath}}  width="130" height="100"/></a></td>
+												<td>{{prod.carName}}</td>
+												<td>{{prod.carStandPrice}}</td>
+												<td>{{prod.inputtime}}</td>
+												<td>{{prod.createrName}}</td>
+                                                <td>
+										          <a ng-click="goedit(prod.carId);" href="javascript:;" title="修改"><img src="../images/edit.png" alt=""></a>
+										          <a ng-click="godel(prod.carId);" href="javascript:;" title="删除"><img src="../images/delete.png" alt=""></a>
+										       </td>
+										</tr>
+								</tbody>
+						</table>
+						<!-- <div class="left input">
+            <a class="button">新增品牌</a>
+        </div>-->
+						<div class="pagination"> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="prev">«</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">1</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="current">2</a> ... <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">21</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">22</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="next">»</a> </div>
+				</div>
+		</div>
+        </div>
+</div>
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+</body>
+</html>
+<script type="text/javascript">
+var carListApp = angular.module("carListApp", []);
+carListApp.config(function($provide) {
+	   $provide.provider('ProdQueryListService', function() {
+	      this.$get = function() {
+	    	  var factory = {};
+	    	  factory.prodQueryList = function($scope, $http) {
+	    		  //sample-table_length
+	    			var carserId = document.getElementById("carserId").value;
+	    		    if(carserId.indexOf("-")>-1){
+	    				carserId = carserId.substring(0,carserId.indexOf("-"));
+	    			}
+	     		  $http.get("/warehouse/queryCars.do?carserId="+carserId).success(
+	    			    function (response) {
+	  		    	        //数据源
+	  		    	    	$scope.data = response.jsondata;
+	  		    	    	//分页总数
+	  		    	    	$scope.pageSize = 10;
+	  		    	    	$scope.pages = Math.ceil($scope.data.length / $scope.pageSize); //分页数
+	  		    	    	$scope.newPages = $scope.pages > 5 ? 5 : $scope.pages;
+	  		    	    	$scope.pageList = [];
+	  		    	    	$scope.selPage = 1;
+	  		    	    	//设置表格数据源(分页)
+	  		    	    	$scope.setData = function () {
+	  		    	    	$scope.whcars = $scope.data.slice(($scope.pageSize * ($scope.selPage - 1)), ($scope.selPage * $scope.pageSize));//通过当前页数筛选出表格当前显示数据
+	  		    	    	}
+	  		    	    	$scope.whcars = $scope.data.slice(0, $scope.pageSize);
+	  		    	    	//分页要repeat的数组
+	  		    	    	for (var i = 0; i < $scope.newPages; i++) {
+	  		    	    	$scope.pageList.push(i + 1);
+	  		    	    	}
+	  		    	    	//打印当前选中页索引
+	  		    	    	$scope.selectPage = function (page) {
+	  		    	    	//不能小于1大于最大
+	  		    	    	if (page < 1 || page > $scope.pages) return;
+	  		    	    	//最多显示分页数5
+	  		    	    	if (page > 2) {
+	  		    	    	//因为只显示5个页数，大于2页开始分页转换
+	  		    	    	var newpageList = [];
+	  		    	    	for (var i = (page - 3) ; i < ((page + 2) > $scope.pages ? $scope.pages : (page + 2)) ; i++) {
+	  		    	    	newpageList.push(i + 1);
+	  		    	    	}
+	  		    	    	$scope.pageList = newpageList;
+	  		    	    	}
+	  		    	    	$scope.selPage = page;
+	  		    	    	$scope.setData();
+	  		    	    	$scope.isActivePage(page);
+	  		    	    	console.log("选择的页：" + page);
+	  		    	    	};
+	  		    	    	//设置当前选中页样式
+	  		    	    	$scope.isActivePage = function (page) {
+	  		    	    	return $scope.selPage == page;
+	  		    	    	};
+	  		    	    	//上一页
+	  		    	    	$scope.Previous = function () {
+	  		    	    	$scope.selectPage($scope.selPage - 1);
+	  		    	    	}
+	  		    	    	//下一页
+	  		    	    	$scope.Next = function () {
+	  		    	    	$scope.selectPage($scope.selPage + 1);
+	  		    	    	};
+	  		    		}
+	    		   );
+	    	  }
+	    	  return factory;
+	      };
+	   });
+	});
+//在 service 中注入 factory "ProdQueryListService"
+carListApp.service('ProdService', function(ProdQueryListService){
+   this.queryList = function($scope, $http) {
+      return ProdQueryListService.prodQueryList($scope, $http);
+   }
+});
+carListApp.controller('carListsCtrl', function($scope, ProdService, $http) {
+	//初始化查询
+	ProdService.queryList($scope, $http);
+	$http.get("/warehouse/queryCarCeries.do").success(
+		    function (response) {
+		    	$scope.carseries = response.jsondata;
+		        }
+		    );
+	//点击按钮查询
+    $scope.queryList = function() {
+    	ProdService.queryList($scope, $http);
+    }
+    $scope.goedit = function(carId) {
+    	window.location.href = "carEdit.html?carId="+carId;
+    }
+	$scope.godel = function(carId) {
+	    $http.get("/warehouse/delCar.do?carId="+carId).success(
+				    function (res) {
+				    	if(res==""||res==null||res==undefined){
+				    		alert("error");
+				    	}else{
+				    		alert("车系删除成功");
+				    		window.location.href = "car.html";
+				    	}
+				    }
+		);
+	}
+    $scope.initcar = function(carserId) {
+    	window.location.href = "car.html?carserId="+carserId;
+    }
+});
+</script>

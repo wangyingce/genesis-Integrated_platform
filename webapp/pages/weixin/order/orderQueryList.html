@@ -1,0 +1,38 @@
+﻿<link rel="stylesheet" href="/common/js/jquery/css/ui.jqgrid.css">
+<script src="/common/js/jquery/js/jquery.jqGrid.min.js"></script>
+<script src="/common/js/jquery/js/i18n/grid.locale-cn.js"></script>
+<script src="/pages/weixin/order/js/orderQueryList.js"></script>
+		<div id="basicform" class="subcontent">
+                   <div class="contenttitle2">
+                       <h3>订单查询</h3>
+                   </div><!--contenttitle-->
+
+                   <form class="stdform" action="#" method="post">
+                       <p>
+                        	<label>商户名称</label>
+                            <span class="formwrapper">
+                            	<select data-placeholder="选择一个商户" class="chzn-select mediuminput" style="width:60%;" tabindex="2" id="shanghu">
+                                  <option value=""></option> 
+                                  <option value="yywx30XZgEui2f0BcJ4RTqHKmcid">快我有外遇</option>
+                                  <option value="yywx4NnzBcafgWCjYsvGmRkgmcid">空军建军节</option>
+                                  <option value="yywxD1aX1CpQ4Gp9g3gcVKLFmcid">德国联邦</option>
+                                  <option value="yywxF7ubOeqItjiWVVAzL5uDmcid">1322132a</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p>
+                        	<label>支付时间 从</label>
+                            <span class="field"><input type="datetime-local" name="input1" class="mediuminput" id="payDate1"/></span>
+                        </p>
+                        <p>
+                        	<label>支付时间 从</label>
+                            <span class="field"><input type="datetime-local" name="input1" class="mediuminput" id="payDate2"/></span>
+                        </p>
+                       
+                       <p class="stdformbutton">
+                       	<button class="submit radius2" id="queryBtn">查询</button>
+                       	<input type="reset" class="reset radius2" value="清空" />
+                       </p>
+                   </form>
+            </div>
+	<table id="infos"></table>

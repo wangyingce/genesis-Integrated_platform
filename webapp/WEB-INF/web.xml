@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:spring/*.xml
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>
+			javax.servlet.jsp.jstl.fmt.localizationContext
+		</param-name>
+		<param-value>i18n/messages</param-value>
+	</context-param>
+	<!-- bs系统用户登录状态过滤  start by wyc  -->
+    <filter>  
+        <filter-name>centerFilter</filter-name>  
+        <filter-class>com.ysyl.backstage.login.web.UserFilterAction</filter-class>  
+    </filter>
+    <filter-mapping>
+    <filter-name>centerFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+    </filter-mapping> 
+    <filter-mapping>
+    <filter-name>centerFilter</filter-name>
+    <url-pattern>*.html</url-pattern>
+    </filter-mapping> 
+    <!-- bs系统用户登录状态过滤  end by wyc-->  
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!--Hibernate Open Session in View Filter-->
+	<filter>
+		<filter-name>hibernateFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.FilterDispatcher
+		</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>CacheFilter</filter-name>
+		<filter-class>ins.framework.web.CacheFilter</filter-class>
+		<init-param>
+			<param-name>expireTime</param-name>
+			<param-value>30000</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.gif</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.jpg</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.vbs</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>	
+		<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>*.dwr</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>/service/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/struts/*</url-pattern>
+	</filter-mapping>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+	<session-config>
+		<session-timeout>240</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/common/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/common/403.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>
+			ins.framework.exception.DataVerifyException
+		</exception-type>
+		<location>/common/error.jsp</location>
+	</error-page>
+	
+	<resource-ref>
+		<res-ref-name>eis/XUConnectionFactory</res-ref-name>
+		<res-type>javax.resource.cci.ConnectionFactory</res-type>
+		<res-auth>Application</res-auth>
+		<res-sharing-scope>Unshareable</res-sharing-scope>
+	</resource-ref>
+	
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/msword</mime-type>
+	</mime-mapping>
+	
+	<mime-mapping> 
+		<extension>txt</extension> 
+		<mime-type>application/txt</mime-type> 
+	</mime-mapping>
+	
+	<mime-mapping> 
+		<extension>xls</extension> 
+		<mime-type>application/msexcel</mime-type> 
+	</mime-mapping>
+	<mime-mapping> 
+		<extension>unl</extension> 
+		<mime-type>application/unl</mime-type> 
+	</mime-mapping>
+	
+	
+<context-param>  
+<param-name>webAppRootKey</param-name>  
+<param-value>b2cweb.root</param-value>  
+</context-param> 
+<listener>  
+<listener-class>org.springframework.web.util.WebAppRootListener</listener-class>  
+</listener>  
+	
+	<!-- 微信post入口 -->
+	<servlet>
+		<servlet-name>WxPostServlet</servlet-name>
+		<servlet-class>com.ysyl.restFulServlet.weixin.servlet.WxPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+    	<servlet-name>WxPostServlet</servlet-name>
+    	<url-pattern>/wx</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 支付宝post入口 -->
+	<servlet>
+		<servlet-name>AliPayPostServlet</servlet-name>
+		<servlet-class>com.ysyl.restFulServlet.alipay.servlet.AliPayPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+    	<servlet-name>AliPayPostServlet</servlet-name>
+    	<url-pattern>/ali</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpLoadFileServlet</servlet-name>
+		<servlet-class>com.ysyl.file.UpLoadFileServlet</servlet-class>
+	 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UpLoadFileServlet</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+</web-app>

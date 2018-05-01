@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+ 	<bean id="weiXinPayAction" 
+		class="com.ysyl.weixin.pay.web.WeiXinPayAction" scope="prototype"></bean>
+	<bean id="weiXinOrderAction" 
+		class="com.ysyl.weixin.order.web.WeiXinOrderAction" scope="prototype"></bean>
+	
+	<bean id="merchantAction" 
+		class="com.ysyl.weixin.merchant.web.MerchantAction" scope="prototype"></bean>
+		
+	<!-- 消息管理Action -->
+	<bean id="wxMessageAction"  class="com.ysyl.weixin.message.web.WxMessageAction" scope="prototype"/>
+	<bean id="weiXinConfigAction" 	class="com.ysyl.weixin.config.web.WeiXinConfigAction" scope="prototype"></bean>
+</beans>

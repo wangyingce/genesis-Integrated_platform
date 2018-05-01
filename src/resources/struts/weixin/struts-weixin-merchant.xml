@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="merchant" extends="struts-default" namespace="/merchant">
+	    <!-- 商户分页 -->
+		<action name="queryMerchant" class="merchantAction" method="queryMerchant"/>
+		<!-- 生成商户二维码 -->
+		<action name="createQRcode" class="merchantAction" method="createQRcode"/>
+		<!-- 商户信息保存 -->
+		<action name="saveMerchant" class="merchantAction" method="saveMerchant"/>
+		<!-- 检查商户名称 -->
+		<action name="checkMerchant" class="merchantAction" method="checkMerchant"/>
+		<!-- 获取商户信息 -->
+		<action name="gm" class="merchantAction" method="getMerchantById"/>
+		<!-- 加载页面信息 -->
+		<action name="loadMerchant" class="merchantAction" method="loadMerchant"/>
+		<!-- 预留 -->
+		<action name="initMerchant" class="merchantAction" method="initMerchant">
+			<result name="initMerchant">
+				/pages/weixin/merchant/merchantAdd.html
+			</result>
+		</action>
+	</package>
+</struts>

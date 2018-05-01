@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build-test" default="test">
+	<!-- 定义测试报表目录 -->
+	<property name="test.report" value="${target.dir}/test/unit_reports" />
+	<property name="functional_test.report" value="${target.dir}/test/functional_reports" />
+
+	<!-- =========================================
+			 运行JUnit测试
+		========================================= -->
+	<target name="test" depends="compile" description="运行JUnit测试">
+		<!-- 检查 junit.jar -->
+		<available classname="junit.framework.TestCase" property="junit.present" />
+		<fail unless="junit.present" message="Please make sure  junit-3.8.1.jar in ClassPath or env.ANT_HOME/lib" />
+		<!-- 清除上次的data数据 -->
+		<delete dir="${test.data}/**" />
+		<!-- 执行测试 -->
+		<junit printsummary="yes" fork="true" errorProperty="test.failed" failureProperty="test.failed">
+			<classpath>
+				<path refid="test.classpath" />
+				<path location="${test.build}" />
+			</classpath>
+			<formatter type="xml" />
+			<formatter type="brief" usefile="false" />
+
+			<!-- 执行单个或批量的test case。
+							如果在命令行有定义testcase，
+							如: ant -Dtestcase=org.springside.test.MyTestCase 则执行单个test case. -->
+			<test name="${testcase}" if="testcase" />
+
+			<batchtest todir="${test.data}" unless="testcase">
+				<fileset dir="${test.build}">
+					<exclude name="**/*FunTest.class" />
+					<include name="**/*Test.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<if>
+			<istrue value="${test.failed}" />
+			<then>
+				<test-report report.dir="${test.report}" data.dir="${test.data}" />
+				<fail>Unit tests 失败. 请于${test.report}目录观看错误信息报表.</fail>
+			</then>
+		</if>
+	</target>
+
+	<!-- 生成JUnit测试结果报表 -->
+	<macrodef name="test-report">
+		<attribute name="data.dir" />
+		<attribute name="report.dir" />
+		<sequential>
+			<mkdir dir="@{report.dir}" />
+			<junitreport todir="@{report.dir}">
+				<fileset dir="@{data.dir}">
+					<include name="TEST-*.xml" />
+				</fileset>
+				<report format="frames" todir="@{report.dir}" />
+			</junitreport>
+		</sequential>
+	</macrodef>
+
+	<!-- =========================================
+	   Selenium Web功能测试
+	   ========================================= -->
+
+	<!-- 执行Selenium Web功能测试 -->
+	<target name="fun-test" depends="compile">
+		<path id="selenium.server.runtime">
+			<fileset dir="lib/test" includes="selenium-server-*.jar" />
+		</path>
+
+		<delete dir="${functional_test.data}/**" />
+		<antcall target="selenium.server.start"></antcall>
+		<junit printsummary="no" fork="true" errorProperty="functional.test.failed" failureProperty="functional.test.failed">
+			<classpath>
+				<path refid="test.classpath" />
+				<path location="${test.build}" />
+			</classpath>
+			<formatter type="xml" />
+			<formatter type="brief" usefile="false" />
+
+			<!-- 执行单个或批量的test case。
+											 如果在命令行有定义testcase，
+											 如: ant -Dtestcase=org.springside.test.MyTestCase 则执行单个test case. -->
+			<test name="${testcase}" if="testcase" />
+			<batchtest todir="${functional_test.data}" unless="testcase">
+				<fileset dir="${test.build}">
+					<include name="**/*FunTest.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<if>
+			<istrue value="${functional.test.failed}" />
+			<then>
+				<test-report report.dir="${functional_test.report}" data.dir="${functional_test.data}" />
+				<fail>Unit tests 失败. 请于${functional_test.report}目录观看错误信息报表.</fail>
+			</then>
+		</if>
+	</target>
+
+	<!-- 启动Selenium Proxy Server -->
+	<target name="selenium.server.start">
+		<if>
+			<not>
+				<socket server="localhost" port="4444" />
+			</not>
+			<then>
+				<echo message="启动Selenium Proxy Server..." />
+				<java classname="org.openqa.selenium.server.SeleniumServer">
+					<classpath refid="selenium.server.runtime" />
+				</java>
+			</then>
+		</if>
+	</target>
+
+	<!-- 测试全部 -->
+	<target name="test-all" depends="test,fun-test" />
+
+</project>

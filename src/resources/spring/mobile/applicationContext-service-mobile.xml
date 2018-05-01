@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	
+	<!-- 移动商店相关service -->
+	<bean id="mobileStoreService" class="com.ysyl.mobile.wxstore.service.spring.MobileStoreServiceSpringImpl" />
+	
+	<!-- 支付相关service -->
+	<bean id="payService" class="com.ysyl.mobile.pay.service.spring.PayServiceSpringImpl" />
+	
+	<!-- 摄影工作室相关service begin-->
+	<bean id="photoGraphService" class="com.ysyl.mobile.photograph.service.spring.PhotoGraphServiceSpringImpl" />
+	<!-- 摄影工作室相关service end-->
+	
+	<!-- 商户相关service begin-->
+	<bean id="waresOwnerService" class="com.ysyl.mobile.waresowner.service.spring.WaresOwnerServiceSpringImpl" />
+	<!-- 商户相关service end-->
+	
+	<!-- 餐饮相关service begin -->
+	<bean id="orderFoodService" class="com.ysyl.mobile.orderFood.service.spring.OrderFoodServiceSpringImpl" />
+	<!-- 餐饮相关service end -->
+</beans>

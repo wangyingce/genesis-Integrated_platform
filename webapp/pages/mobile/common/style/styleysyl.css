@@ -1,0 +1,485 @@
+/*底部*/
+.mui-bar-footer .mui-bar-tab .mui-tab-item{ color: #fff;}
+.mui-bar-footer .mui-bar-tab .mui-active{background-color:#f8f8f8; }
+.mui-bar-footer{background:#f8f8f8;}
+.mui-bar-footer ul{width: 100%; display: table; background-color:#f8f8f8; }
+.mui-bar-footer ul li{width: 25%; display: table-cell; text-align: center; color: #f8f8f8;}
+.mui-bar-footer ul li a{color: #666;}
+.mui-bar-footer ul .active{background-color:#f8f8f8;}
+
+@font-face {
+	font-family:Muiicons;font-weight:400;font-style:normal;src:url(/pages/mobile/common/fonts/mui.ttf) format('truetype')
+}
+.bw{
+	background-color:#fff;
+	border-bottom:#e8e8e8 1.5px solid;/* 底边线条*/
+	font-size:0.8em;
+	text-align:center;
+}
+/*说明字体*/
+.headtitle{
+	color:#666; /*颜色*/
+	font-size:1.0em;
+	line-height:30px;/*高度*/
+	padding: 2% 2% 0% 2%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	text-align: justify;
+	font-weight:bold;/*加粗*/
+	text-align:left;
+}
+
+/*说明字体*/
+.midtitle{
+	color:#666; /*颜色*/
+	line-height:20px;/*高度*/
+	padding: 0% 1% 3% 2%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	text-align: justify;
+	text-align:left;
+	font-size:12px;
+}
+
+/*说明字体*/
+.midtitle a{
+	font-size:11px;
+}
+
+.registerinputlabel
+{
+	position:absolute;
+	left:-15%;
+	top:22%;
+	font-size:14px;
+	text-align:left;
+}
+
+.registerinputicon
+{
+	width:17px;
+	position:absolute;
+	right:0%;
+	top:22%;
+}
+
+.input_text
+{
+	color:#8f8f8f; /*颜色*/
+	width: 60%;
+	margin: 0 auto;/*居中*/
+	position:relative;
+	text-align:center;
+	margin-top: 1%;
+}
+
+.input_text input
+{
+	width: 90%;
+	height: 20%;
+	background-color:#fff;
+	overflow:hidden;
+	font-size:14px;
+}
+
+
+
+.h5{
+	padding: 5% 0% 0% 0%;/*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.h15{
+	padding: 15% 0% 0% 0%;/*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.l5{
+	padding: 0% 0% 5% 0%;/*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.tdleft
+{
+	position:absolute;
+	left:-13%;
+	top:20%;
+	font-size:14px;
+	text-align:left;
+}
+
+.input_row
+{
+	text-align:left;
+	color:#8f8f8f; /*字体颜色*/
+	width: 70%;/*宽度*/
+	margin: 0 18%;/*居中 往右移百分比*/
+	position:relative;
+}
+.input_row input
+{
+	height:20%;
+	width: 90%;
+	font-size:14px;
+	
+}
+
+.input_textarea
+{
+	color:#8f8f8f; /*字体颜色*/
+	position:relative;
+	font-size:14px;
+	/*字体粗细*/
+	font-weight:300;
+}
+
+
+.input_img
+{
+	text-align:legt;
+	color:#8f8f8f; /*字体颜色*/
+	width: 80%;/*宽度*/
+	margin: 0 10%;/*居中 往右移百分比*/
+	position:relative;
+}
+.input_img img{
+	width:auto;
+	height:auto;
+	max-width:100%;
+	max-height:90%;
+}
+
+.text_w{
+	font-size:16px;
+	text-align:left;
+	width:100%;
+	color:#666;
+	border-bottom:#f0f0f0 1px solid;
+	padding: 0% 0% 0% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+.text_w del{
+	font-size:15px;
+	color:#666;
+	font-weight:300;}
+.text_w span{
+	font-size:15px;
+	color:#ff461f;
+	/*字体粗细*/
+	font-weight:300;
+}
+
+.input_ceng
+{
+	color:#666; /*字体颜色*/
+	width: 90%;/*宽度*/
+	margin: 0 5%;/*居中 往右移百分比*/
+	position:relative;
+}
+
+.text_b{
+	line-height:30px;/*高度*/
+	text-align:left;
+	width:100%;
+	color:#666;
+	font-size:15px;
+	/*字体粗细*/
+	font-weight:300;
+	border-bottom:#f0f0f0 1px solid;
+	padding: 0% 0% 0% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.money:before{content:"￥";}
+.money_o{color:#ff461f; /*字体颜色*/}
+
+.text_b del{
+	font-size:15px;
+	color:#666;
+	font-weight:300;
+}
+.text_w ul{
+	font-size:15px;
+	color:#666;
+	font-weight:300;
+	padding:0% 0% 0% 5%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	line-height:1.8;/* 行间距*/
+}
+
+.input_button1
+{
+	text-align:left;
+	color:#8f8f8f; /*字体颜色*/
+	width: 70%;/*宽度*/
+	margin: 0 18%;/*居中 往右移百分比*/
+	position:relative;
+}
+
+.input_button1 input
+{
+	width:93%;
+	border-radius:2px;
+	height:20%;
+}
+
+
+.input_button2
+{
+	text-align:left;
+	color:#8f8f8f; /*字体颜色*/
+	width: 80%;/*宽度*/
+	margin: 0 10%;/*居中 往右移百分比*/
+	position:relative;
+	white-space:nowrap;/*不换行*/
+}
+.input_button2 input
+{
+	width:93%;
+	border-radius:2px;
+}
+
+.input_button3
+{
+	text-align:left;
+	color:#8f8f8f; /*字体颜色*/
+	width: 80%;/*宽度*/
+	margin: 0 10%;/*居中 往右移百分比*/
+	position:relative;
+	white-space:nowrap;/*不换行*/
+}
+.input_button3 span
+{
+	padding: 0% 0% 0% 35%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	
+}
+.input_button3 input
+{
+	line-height:10px;
+	font-size:15px;
+	width:93%;
+	border-radius:2px;
+	height:25px;
+	background:#4476A7;
+}
+
+.w70{width: 100%;}
+.w30{width: 30%;}
+
+.tab_proList{
+	padding:0 3%;
+	overflow:hidden;
+	margin:0;
+}
+.tab_proList dt{
+	height:40px;
+	line-height:40px;
+	display:box;
+	display:-webkit-box;
+	border-bottom:1px #f8f8f8 solid;
+}
+.tab_proList dt a{
+	display:block;
+	box-flex:1;
+	-webkit-box-flex:1;
+	-moz-box-flex:1;
+	/*border-right:1px #d2d2d2 solid;*/
+	text-align:center;
+	font-size:15px;
+	color:#666; /*字体颜色*/
+}
+
+.baccolor{
+	color:#ff7d00; /*字体颜色*/
+	border-bottom:2px #ff7d00 solid;
+}
+
+.bwl{
+	padding: 2% 0% 0% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	background-color:#fff;
+	border-bottom:#EFEFF4 10px solid;/* 底边线条*/
+	font-size:15px;
+	text-align:left;
+	color:#666; /*字体颜色*/
+}
+.bwla{
+	position: absolute;
+	right: 3%;
+	color:#ff7d00; /*字体颜色*/
+}
+.bgef{
+	text-align:left;
+	color:#666; /*字体颜色*/
+	/**background-color:#EFEFF4;*/
+	width: 100%;/*宽度*/
+	height:130px;/*高度*/
+	border-bottom:#f0f0f0 1px solid;
+	border-top:#f0f0f0 1px solid;
+}
+
+.bgef span img{
+	width:23%;
+	position:absolute;
+	margin: 1% 0% 1% 5%; /*外边距margin:10px 5px 15px 20px; 上右下左*/
+	
+}
+
+.text_c{
+	color:#666;
+	font-size:13px;
+	/*字体粗细*/
+	font-weight:400;
+	/**border-bottom:#f0f0f0 1px solid;*/
+	padding: 0% 0% 0% 32%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.spanbefore{
+	font-family: Muiicons;
+	padding: 0% 0% 0% 2%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+.spanbefore:before {
+	content: '\e403';
+}
+
+.phonefont:before {
+	content: '\e200';
+}
+
+.successfont:before {
+	content: '\e442';
+}
+
+.bwlbefore {
+	content: '\e503';
+}
+.input_button4
+{
+	height:40px;
+	text-align:right;
+	width: 97%;/*宽度*/
+	padding: 1.5% 2% 1% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+.input_button4 span
+{
+	padding: 0% 0% 0% 5%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+	
+}
+.input_button4 input
+{
+	color:#666; /*字体颜色*/
+	line-height:10px;
+	font-size:12px;
+	width:15%;
+	height:15px;
+	/*border-radius:5px; 边框圆角**/
+	background:#fff;
+	border:#666 1px solid;/* 底边线条*/
+	font-weight:400px;/*加粗*/
+}
+
+.pgbg{
+	font-family: Muiicons;
+	background-color:#fff;
+}
+
+.pgbgdiv{
+	width: 90%;/*宽度*/
+	margin: 0 5%;/*居中 往右移百分比*/
+}
+
+.pgbgtext{
+	color:#666; /*字体颜色*/
+	line-height:30px;/*高度*/
+	text-align:left;
+	font-size:15px;
+	/*字体粗细*/
+	font-weight:300;
+	border-bottom:#f0f0f0 1.5px solid;
+}
+
+.pgbgtop{
+	color:#4476A7; /*字体颜色*/
+	line-height:35px;/*高度*/
+	text-align:center;
+	font-size:20px;
+	/*字体粗细*/
+	font-weight:300;
+	border-bottom:#f0f0f0 1.5px solid;
+	padding: 2% 0% 1% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.pgbgbutton{
+	text-align:right;
+	/*字体粗细*/
+	font-weight:300;
+	border-bottom:#f0f0f0 1.5px solid;
+}
+
+.pgbgbutton input{
+	line-height:10px;
+	width:20%;
+	height:20px;
+	margin: 1% 0% 2% 5%; /*外边距margin:10px 5px 15px 20px; 上右下左*/
+	/*border-radius:5px; 边框圆角**/
+}
+
+.indexfull{
+	background-color:#fff;
+	width:100%;
+	height:100%;
+}
+
+.indeximg{
+	width:auto;
+	height:auto;
+	max-width:100%;
+	max-height:230px;
+	margin: 12% 0% 0% 0%; /*外边距margin:10px 5px 15px 20px; 上右下左*/
+}
+
+.indexdiv{
+	text-align:left;
+	color:#666; /*字体颜色*/
+	background-color:#fff;
+	width: 100%;/*宽度*/
+	height:60px;/*高度*/
+	border-bottom:#f0f0f0 1px solid;
+	padding: 1% 0% 0% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.indexphoto{
+	text-align:left;
+	color:#666; /*字体颜色*/
+	background-color:#fff;
+	width: 34%;/*宽度*/
+	height:60px;/*高度*/
+	border-top:#f0f0f0 1px solid;
+	padding: 2% 0% 0% 0%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+
+.indexphoto span img{
+	width:40%;
+	position:absolute;
+	right:5% /*外边距margin:10px 5px 15px 20px; 上右下左*/
+}
+
+.indexphoto img{
+	width:40%;
+	position:absolute;
+	margin: 0% 0% 0% 5%; /*外边距margin:10px 5px 15px 20px; 上右下左*/
+}
+
+.indextext{
+	color:#666;
+	font-size:13px;
+	/*字体粗细*/
+	font-weight:300;
+	/**border-bottom:#f0f0f0 1px solid;*/
+	padding: 0% 0% 0% 25%; /*内边距padding:10px 5px 15px 20px; 上右下左*/
+}
+.indextexttitle{
+	/**color:#E27467;*/
+	color:#666;
+	font-size:13px;
+	font-weight:bold;/*加粗*/
+}
+
+.indexdiv span img{
+	width:13%;
+	position:absolute;
+	margin: 0% 0% 0% 5%; /*外边距margin:10px 5px 15px 20px; 上右下左*/
+}
+
+
+
+

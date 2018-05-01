@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<!-- 移动商店 -->
+	<package name="common" extends="struts-default" namespace="/cm">
+		<!-- 所有需要页面授权页面入口 -->
+		<action name="aw" class="commonAction" method="authorizeWeb">
+			<result name="notweixin">
+				/pages/weixinMobile/common/error.html
+			</result>
+		</action>
+		<!-- 微信菜单点击统一跳转，统一拉取用户信息 -->
+		<action name="cf" class="commonAction" method="fowardUrl">
+			<result name="ws" type="redirect">
+				<param name="location">
+					/cm/i.do?storeId=${wxFowardVo.inputId}&amp;inputName=${wxFowardVo.inputName}&amp;openId=${wxFowardVo.yywxUserInfo.openid}&amp;nickName=${wxFowardVo.yywxUserInfo.nickname}&amp;type=${type}
+				</param>
+				<param name="parse">true</param>
+			</result>
+			<result name="wp" type="redirect">
+				<param name="location">
+					/cm/i.do?m=${wxFowardVo.inputId}&amp;o=${wxFowardVo.yywxUserInfo.openid}&amp;type=${type}
+				</param>
+				<param name="parse">true</param>
+			</result>
+			<result name="wo" type="redirect">
+				<param name="location">
+					/cm/i.do?orderid=${wxFowardVo.inputId}&amp;type=${type}
+				</param>
+				<param name="parse">true</param>
+			</result>
+			<result name="notweixin">
+				/pages/weixinMobile/common/error.html
+			</result>
+			<!-- 微商注册 -->
+			<result name="mctad">
+				/pages/weixin/merchant/merchantAdd.html
+			</result>
+			<result name="mv">
+				/pages/weixin/merchant/merchantVerify.html?m=${wxFowardVo.inputId}
+			</result>
+			<!-- 摄影工作室 -->
+			<result name="wpg" type="redirect">
+				<param name="location" >
+					/photograph/registPhotoGraph.do?openId=${wxFowardVo.yywxUserInfo.openid}&amp;nickName=${wxFowardVo.yywxUserInfo.nickname}&amp;storeId=${wxFowardVo.inputId}
+				</param>
+				<param name="parse">true</param>
+			</result>
+			<result name="wpgp" type="redirect">
+				<param name="location">
+					/photograph/getMyPhoto.do?openId=${wxFowardVo.yywxUserInfo.openid}&amp;storeId=${wxFowardVo.inputId}
+				</param>
+				<param name="parse">true</param>
+			</result>
+		</action>
+		<!-- 页面初始化跳转 -->
+		<action name="i" class="commonAction" method="init">
+			<result name="ws" >
+				/pages/mobile/store/storeIndex.html
+			</result>
+			<result name="wp" >
+				/pages/weixinMobile/pay/inputpay.html
+			</result>
+			<result name="wo" >
+				/pages/weixinMobile/pay/payinfo.html
+			</result>
+			<result name="notweixin">
+				/pages/weixinMobile/common/error.html
+			</result>
+		</action>
+		
+		<!-- 摄影工作室跳转 -->
+		<action name="pg" class="commonAction" method="pgForwardUrl">
+			<result name="regist" type="redirect">
+				<param name="location">
+					/photograph/registPhotoGraph.do?openId=${wxFowardVo.yywxUserInfo.openid}&amp;nickName=${wxFowardVo.yywxUserInfo.nickname}
+				</param>
+				<param name="parse">true</param>
+			</result>
+		</action>
+		
+			
+		<!-- 清理缓存 -->
+		<action name="clearMem" class="commonAction" method="clearMem"></action>
+		
+		
+	</package>
+</struts>

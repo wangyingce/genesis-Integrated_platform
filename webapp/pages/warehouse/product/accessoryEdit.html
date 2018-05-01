@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理系统</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/jquery.wysiwyg.old-school.css">
+
+<!-- jQuery AND jQueryUI -->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/min.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="stylesheet" href="../css/style2.css">
+<!-- 引入angularjs -->
+<script src="http://cdn.bootcss.com/angular.js/1.5.0/angular.min.js"></script>
+</head>
+<body>
+
+
+<!--     内容      -->
+<div id="content" class="white">
+<div class="bloc" ng-app="accessoryEditApp" ng-controller="accessoryEditCtrl">
+		<div class="title">新增配件<a class="toggle"></a></div>
+		<input type="text" id="accessoryId" ng-model="accessory.accessoryId" name="accessoryId"  style="display:none">
+		<div class="content" style="height:320px;">
+				<div class="input">
+				        <canvas id="serCanvas" width="200" height="20" style="border:0px solid #d3d3d3;"></canvas>
+						<label for="file">选择车系</label>
+						<select id="carserId" ng-model="accessory.carserId"><option ng-repeat="cnm in carseries">{{cnm.carserId}}-{{cnm.carserName}}</option></select>
+				</div>
+				<div class="input">
+						<label for="file">配件名称</label>
+						<input type="text"  ng-model="accessory.accessoryName" id="accessoryName" name="accessoryName"  width="50px">
+				</div>
+				<div class="input">
+						<label for="file">配件价格</label>
+						<input type="text" ng-model="accessory.accessoryStandPrice" id="accessoryStandPrice" name="accessoryStandPrice"  width="50px" onKeyUp="amount(this)" onBlur="overFormat(this)">
+				</div>
+				<div class="submit">
+						<input type="submit" id="accessoryadd" ng-click="accessoryadd();" value="确定">
+				</div>
+		</div>
+</div>
+</div>
+<br>
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+</body><br>
+
+</html>
+<script type="text/javascript">
+var accessoryEditApp = angular.module("accessoryEditApp", []);
+accessoryEditApp.controller('accessoryEditCtrl', function($scope, $http) {
+	$http.get("/warehouse/queryCarCeries.do").success(
+		    function (response) {
+		    	$scope.carseries = response.jsondata;
+		        }
+		    );
+	var rqstUrl=window.location.href;
+	if(rqstUrl.indexOf("=")>=0){
+		var accessoryId = rqstUrl.substring(rqstUrl.indexOf("=")+1, rqstUrl.length);
+		if(accessoryId!=null&&accessoryId!=undefined){
+			$http.get("/warehouse/queryAccessorys.do?accessoryId="+accessoryId).success(
+				    function (response) {
+				    	$scope.accessory = response;
+				    	//document.getElementById('oldSer').innerHTML = "<font color='#C0C0C0'>原始车系："+data.carserName+"</font>";
+					    var ctx=document.getElementById("serCanvas").getContext("2d");
+					    ctx.font="10px Arial";
+					    ctx.fillText("原始车系："+$scope.accessory.carserName,0,10);
+				    }
+		    );  
+		}
+		   
+	}
+	$scope.accessoryadd = function() {
+		//var carserId = $scope.accessory.carserId;
+		var carserId ="";
+		if($scope.accessory==""||$scope.accessory==null||$scope.accessory==undefined){
+			alert("请选择车系统");
+	        return false;
+		}else{
+			carserId =  $scope.accessory.carserId;
+			if(carserId==""||carserId==null||carserId==undefined){
+				alert("请选择车系统");
+		        return false;
+			}else{
+				carserId = carserId.substring(0,carserId.indexOf("-"));
+			}
+			if($scope.accessory.accessoryName==""||$scope.accessory.accessoryName==null||$scope.accessory.accessoryName==undefined){
+				document.getElementById("accessoryName").focus();
+		        return false;
+		    }
+			if($scope.accessory.accessoryStandPrice==""||$scope.accessory.accessoryStandPrice==null||$scope.accessory.accessoryStandPrice==undefined){
+				document.getElementById("accessoryStandPrice").focus();
+		        return false;
+		    }
+		}
+		$http({  
+			url:'/warehouse/addAccessory.do', 
+			method: 'get',
+			params: {
+				accessoryId:$scope.accessory.accessoryId,
+				carserId:carserId,
+				accessoryName:$scope.accessory.accessoryName,
+				accessoryStandPrice:$scope.accessory.accessoryStandPrice
+			}
+		}).success(function(response){ 
+			if(response==""||response==null||response==undefined){
+	    		 alert("错误");
+	         }else{
+	        	 if($scope.accessory.accessoryId==""||$scope.accessory.accessoryId==null||$scope.accessory.accessoryId==undefined){
+		    		   alert("新增配件成功");
+		    		}else{
+		    		   alert("更新配件成功");
+		    		}
+	    		 window.location.href = "accessory.html";
+	         }
+		});
+	}
+});
+/**
+* 实时动态强制更改用户录入
+* arg1 inputObject
+**/
+function amount(th){
+    var regStrs = [
+        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
+        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
+        ['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
+        ['^(\\d+\\.\\d{2}).+', '$1'] //禁止录入小数点后两位以上
+    ];
+    for(i=0; i<regStrs.length; i++){
+        var reg = new RegExp(regStrs[i][0]);
+        th.value = th.value.replace(reg, regStrs[i][1]);
+    }
+}
+ 
+/**
+* 录入完成后，输入模式失去焦点后对录入进行判断并强制更改，并对小数点进行0补全
+* arg1 inputObject
+* 这个函数写得很傻，是我很早以前写的了，没有进行优化，但功能十分齐全，你尝试着使用
+* 其实有一种可以更快速的JavaScript内置函数可以提取杂乱数据中的数字：
+* parseFloat('10');
+**/
+function overFormat(th){
+    var v = th.value;
+    if(v === ''){
+        v = '0.00';
+    }else if(v === '0'){
+        v = '0.00';
+    }else if(v === '0.'){
+        v = '0.00';
+    }else if(/^0+\d+\.?\d*.*$/.test(v)){
+        v = v.replace(/^0+(\d+\.?\d*).*$/, '$1');
+        v = inp.getRightPriceFormat(v).val;
+    }else if(/^0\.\d$/.test(v)){
+        v = v + '0';
+    }else if(!/^\d+\.\d{2}$/.test(v)){
+        if(/^\d+\.\d{2}.+/.test(v)){
+            v = v.replace(/^(\d+\.\d{2}).*$/, '$1');
+        }else if(/^\d+$/.test(v)){
+            v = v + '.00';
+        }else if(/^\d+\.$/.test(v)){
+            v = v + '00';
+        }else if(/^\d+\.\d$/.test(v)){
+            v = v + '0';
+        }else if(/^[^\d]+\d+\.?\d*$/.test(v)){
+            v = v.replace(/^[^\d]+(\d+\.?\d*)$/, '$1');
+        }else if(/\d+/.test(v)){
+            v = v.replace(/^[^\d]*(\d+\.?\d*).*$/, '$1');
+            ty = false;
+        }else if(/^0+\d+\.?\d*$/.test(v)){
+            v = v.replace(/^0+(\d+\.?\d*)$/, '$1');
+            ty = false;
+        }else{
+            v = '0.00';
+        }
+    }
+    th.value = v; 
+}
+</script>

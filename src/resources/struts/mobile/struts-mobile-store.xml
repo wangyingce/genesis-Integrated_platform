@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	
+	<!-- 移动商店 -->
+	<package name="store" extends="struts-default" namespace="/store">
+		<!-- 初始化首页 -->
+		<action name="init" class="mobileStoreAction" method="initIndex"></action>
+		
+		<!-- 查看购物车 -->
+		<action name="viewCargo" class="mobileStoreAction" method="viewCargo">
+			<result name="viewCargo" >
+				/pages/mobile/store/storeShopCast.html
+			</result>
+		</action>
+		
+		<!-- 初始化购物车 -->
+		<action name="initShopCast" class="mobileStoreAction" method="initShopCast"></action>
+		
+		<!-- 支付 -->
+		<action name="toPay" class="mobileStoreAction" method="toPay"></action>
+	</package>
+</struts>

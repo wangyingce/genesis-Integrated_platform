@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>快速预约</title>
+    
+   	<link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styleysyl.css"/>
+   	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/photograph.js"></script>
+    <script src="js/mobiscroll.2.13.2.js"></script>
+    <link href="css/mobiscroll.2.13.2.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(function () {
+            var opt = {
+                'default': {
+					//useShortLabels: true,
+					//是否显示label
+					//showLabel:true,
+					onSelect:function(valueText,labelText){
+				       	 //点击确定以后的结果
+				       	 var aaa = labelText+" "+valueText;
+					     //alert(labelText.values[1]);
+					     document.getElementById("photoExplain_Jt").style="";
+					     document.getElementById("photoExplain_Wm").style="display:none";
+					    
+				     }
+                },
+                'select': {
+                    preset: 'select',
+                    selectedText:'请选择',
+                    //样式'android-holo-light','android-ics light'
+					theme: 'android-ics light',
+					mode: 'scroller',
+					//指定显示格式 'bottom','modal'
+					display: 'modal',
+					animate: 'fade'
+                },
+                'default-opt': {
+					//useShortLabels: true,
+					//是否显示label
+					//showLabel:true,
+					//返回自定义格式结果,把label和value拼起来显示
+					formatResult: function (array) { 
+						var ss = null;
+						var text = "";
+						var returnTxt ="";
+						try{
+							ss = names.options[array[1]-1].parentNode.attributes;
+							text = names.options[array[1]-1].text;
+							returnTxt = ss["label"].value+' '+text;
+						}catch(e){
+							ss = names.options[array[0]].parentNode.attributes;
+							text = array[1];
+							returnTxt = text;
+						}
+						return returnTxt;
+			        }
+					 
+                },
+                'select-opt': {
+                    preset: 'select',
+                    group: true,
+                    selectedText:'请选择',
+                    width: 50
+                },
+            }
+			$("#dddd").mobiscroll().date(opt);
+			//单选设置样式
+            $('.demo-test-select').scroller($.extend(opt['select'],opt['default']));
+            //级联选择设置样式			
+			$('.demo-test-select-opt').scroller($.extend(opt['select-opt'],opt['default-opt']));
+			
+        });
+        
+    </script>
+
+</head>
+<body>
+	<!--顶部-->
+	<header class="mui-bar mui-bar-nav you">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">快速预约</h1>
+	</header>
+		
+		<div class="mui-content">
+			<div class="bw">
+				<div class="headtitle">
+					验证成功！请选择您的预约类型
+				</div>
+				<div class="midtitle">
+			    	&nbsp;&nbsp;预约流程：选择摄影类型→选择摄影时间→确认订单信息→订单支付→预约成功
+			    </div>
+			</div>
+			 
+			<div class="bw h5">
+			    <div class="input_row">
+					<span class="tdleft">地区</span>
+			        <div data-role="fieldcontain">
+			            <select class="demo-test-select" data-role="none" id="place1">
+			            	<option value="0">北京</option>
+			                <option value="1">上海</option>
+			            </select>
+			        </div>
+			    </div>
+				<div class="input_row">
+					<span class="tdleft">类型</span>
+			        <div data-role="fieldcontain">
+			            <select class="demo-test-select" data-role="none" id="dddd">
+			                <option value="1">证件照</option>
+			                <option value="2">全身照</option>
+			                <option value="3">家庭照</option>
+			            </select>
+			        </div>
+			    </div>
+			    <div class="input_row">
+				    <span class="tdleft">日期</span>
+			        <select id="names" class="demo-test-select-opt" >
+			        	<optgroup id="a1" label="7月27日">
+			            	<option value="1" >9:00-11:00</option>
+			                <option value="2">11:00-13:00</option>
+			                <option value="3">13:00-15:00</option>
+			                <option value="4">15:00-17:00</option>
+			            </optgroup>
+			            <optgroup id="a2" label="7月28日">
+			                <option value="5">9:00-11:00</option>
+			                <option value="6" >11:00-13:00</option>
+			                <option value="7">13:00-15:00</option>
+			                <option value="8">15:00-17:00</option>
+			            </optgroup>
+			            <optgroup id="a3" label="7月29日">
+			                <option value="9">9:00-11:00</option>
+			                <option value="10">11:00-13:00</option>
+			                <option value="11">13:00-15:00</option>
+			                <option value="12">15:00-17:00</option>
+			            </optgroup>
+			            <optgroup id="a4" label="7月30日">
+			                <option value="13">9:00-11:00</option>
+			                <option value="14">11:00-13:00</option>
+			                <option value="15">13:00-15:00</option>
+			                <option value="16">15:00-17:00</option>
+			            </optgroup>
+			        </select>
+			     </div>
+    		</div>
+    		<div class="bw h5" id="photoExplain_Wm">
+	    		<div class="input_img">
+	            	<h3 class="headtitle text_w">完美证件照：<del class="money">150.00</del>/<span class="money">120.00</span></h3>
+	    			<img src="images/timg.jpg"/>
+	            	<h3 class="headtitle text_w">包含项目：
+	            		<ul>化妆(1个妆面造型)</ul>
+	            		<ul>拍摄(1种背景颜色)</ul>
+	            		<ul>修图(1张精修图片)</ul>
+	            		<ul>冲印(1种尺寸冲印)</ul>
+	            	</h3>
+	            	<h3 class="headtitle text_w">服务时长：<span>2小时</span></h3>
+	            	<h3 class="headtitle text_w">预约费用：<span class="money">100.00</span></h3>
+	            </div>
+	             <div class="input_button2">
+	      			<input type="button" id="payBtn" value="预约支付" />
+	    		</div>
+	    		<div class="h15 bw"></div>
+    		</div>
+    		<div class="bw h5" id="photoExplain_Jt" style="display:none">
+	    		<div  class="input_img">
+	            	<h3 class="headtitle text_w">完美全身照：<del class="money">1000.00</del>/<span class="money">300.00</span></h3>
+	    			<img src="images/a1.png"/>
+	            	<h3 class="headtitle text_w">包含项目：
+	            		<ul>化妆(1个妆面造型)</ul>
+	            		<ul>拍摄(1种背景颜色)</ul>
+	            		<ul>修图(1张精修图片)</ul>
+	            		<ul>冲印(1种尺寸冲印)</ul>
+	            	</h3>
+	            	<h3 class="headtitle text_w">服务时长：<span>2小时</span></h3>
+	            	<h3 class="headtitle text_w">预约费用：<span class="money">100.00</span></h3>
+	            </div>
+	             <div class="input_button2">
+	      			<input type="button" id="payBtn" value="预约支付" />
+	    		</div>
+	    		<div class="h15 bw"></div>
+    		</div>
+    		
+    		
+    	</div>
+    	
+    <footer class="mui-bar mui-bar-footer" style="padding: 0;">
+		<ul>
+			<li class="active">
+				<a href="index.html">
+					 <span class="mui-icon mui-icon-home"></span>
+				</a>
+			</li>
+			<li>
+				<a href="compose.html">
+					 <span class="mui-icon mui-icon-compose"></span>
+				</a>
+			</li>
+			<li>
+				<a href="self.html">
+					 <span class="mui-icon mui-icon-contact"></span>
+				</a>
+			</li>
+			<li>
+				<a href="set.html">
+					 <span class="mui-icon mui-icon-gear"></span>
+				</a>
+			</li>
+		</ul>	
+	</footer>
+</body>
+</html>

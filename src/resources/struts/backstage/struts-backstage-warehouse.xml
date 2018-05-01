@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="warehouse" extends="struts-default" namespace="/warehouse">
+    
+    <action name="initWarehousePower" class="warehouseAction" method="initWarehousePower"></action>
+    <action name="addCarCeries" class="warehouseAction" method="addCarCeries"></action>
+    <action name="queryCarCeries" class="warehouseAction" method="queryCarCeries"></action>
+    <action name="delCarCeries" class="warehouseAction" method="delCarCeries"></action>
+    
+    <action name="addCar" class="warehouseAction" method="addCar"></action>
+    <action name="queryCars" class="warehouseAction" method="queryCars"></action>
+    <action name="delCar" class="warehouseAction" method="delCar"></action>
+    
+    <action name="queryAccessorys" class="warehouseAction" method="queryAccessorys"></action>
+    <action name="addAccessory" class="warehouseAction" method="addAccessory"></action>
+    <action name="delAccessory" class="warehouseAction" method="delAccessory"></action>
+    
+    <action name="dataEntry" class="warehouseAction" method="dataEntry"></action>
+    
+	</package>
+</struts>

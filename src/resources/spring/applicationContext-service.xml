@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-autowire="byName" default-lazy-init="true">
+	<import resource="classpath:spring/weixin/applicationContext-service-weixin.xml" />	
+	
+	<!-- 移动app相关html5配置xml -->
+	<import resource="classpath:spring/mobile/applicationContext-service-mobile.xml" />	
+	
+	<!-- 公共服务 -->
+	<import resource="classpath:spring/common/applicationContext-service-common.xml" />
+	
+	<!-- 后台系统服务 -->
+	<import resource="classpath:spring/backstage/applicationContext-service-backstage.xml" />	
+	
+</beans>

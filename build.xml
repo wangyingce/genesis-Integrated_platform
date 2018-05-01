@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="claim" default="usage">
+	<!-- 引入属性文件--> 
+	<property file="bin/build_user.properties"/>
+	<!-- 引入springside build_base.xml模板 -->
+	<import file="bin/build_main.xml"/>
+</project>

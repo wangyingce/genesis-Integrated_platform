@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 点餐系统 -->
+	<package name="orderFood" extends="struts-default" namespace="/orderFood">
+		<!-- 初始化首页 -->
+		<action name="init" class="orderFoodAction" method="initIndex">
+			<result name="success" >
+				/pages/orderFood/orderFoodIndex.jsp
+			</result>
+		</action>
+		
+		<!-- 切换种类 -->
+		<action name="initCargoStatus" class="orderFoodAction" method="initCargoStatus"></action>
+		
+		<!-- 菜品的详细信息 -->
+		<action name="getProductDetil" class="orderFoodAction" method="getProductDetil">
+			<result name="success" >
+				/pages/orderFood/product.jsp
+			</result>
+		</action>
+		<!-- 保存购物车 -->
+		<action name="saveShoppingCart" class="orderFoodAction" method="saveShoppingCart"></action>
+		<!-- 删除购物车 -->
+		<action name="deleteShoppingCart" class="orderFoodAction" method="deleteShoppingCart"></action>
+		<!-- 查询购物车 -->
+		<action name="getShoppingCartByUserCode" class="orderFoodAction" method="getShoppingCartByUserCode">
+			<result name="success" >
+				/pages/orderFood/cart.jsp
+			</result>
+		</action>
+	</package>
+</struts>

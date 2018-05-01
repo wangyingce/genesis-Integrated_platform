@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="cronTrigger"/> -->
+			</list>
+		</property>
+		<property name="configLocation" value="classpath:config/quartz.properties"/>
+	</bean>
+
+	<!-- <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetail"/>
+		<property name="cronExpression" value="0 0 0/2 * * ?"/>
+	</bean>
+	
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timerClearCache"/>
+		<property name="targetMethod" value="clearCache"/>
+	</bean>
+	<bean id="timerClearCache" class="cn.com.cis.claim.car.common.schedule.TimerClearCache"
+		  autowire="byName" lazy-init="true"> 
+	</bean> -->
+</beans>

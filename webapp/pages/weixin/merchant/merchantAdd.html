@@ -1,0 +1,275 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+<meta charset="utf-8">
+<title>店铺注册页-123</title>
+</head>
+<link href="/pages/weixin/merchant/resource/css/common.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="/pages/weixin/merchant/resource/js/jquery.js"></script>
+<script type="text/javascript" src="/pages/weixin/merchant/resource/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/pages/weixin/merchant/resource/js/interaction.js"></script>
+<!-- //new add by wangyingce -->
+<script>
+var cansubmit = "true";
+$(function() { 
+   var rqstUrl=window.location.href;
+   //alert(rqstUrl);
+   var srsCdChk=/^([\u4E00-\u9FA5]|\w)*$/;
+     //页面初始化加载值=s
+     $.ajax({
+           type: "get", 
+              url: "/merchant/loadMerchant.do", 
+              data: {rqstUrl:rqstUrl},
+              dataType: "json",
+              success: function(data) {
+                         if(data!=null){
+                         document.getElementById("merchantId").value = data.merchantId;
+                         document.getElementById("merchantId").readOnly=true;
+                         document.getElementById("nickName").value = data.nickName;
+                         document.getElementById("registermobile").value = data.registermobile;
+                         document.getElementById("oldqrcodeimg").src = data.qrcodePath;
+                         document.getElementById("corporation").value = data.corporation;
+                         document.getElementById("identifyNumber").value = data.identifyNumber;
+                         document.getElementById("bankCname").value = data.bankCname;
+                         document.getElementById("account").value = data.account;
+                         document.getElementById("address").value = data.account;
+                         $('#registericon1').show();
+                         $('#registericon3').show();
+                         $('#registericon4').show();
+                         $('#registericon5').show();
+                         $('#registericon6').show();
+                         $('#registericon7').show();
+                         $('#registericon8').show();
+                         //$('#h1show').hide();
+                         //$('#h2show').show();
+                         //$('#oldqrcode').show();
+                         }
+                         },
+     });
+     //页面初始化加载值=e
+     
+     //点击下一步=s
+     $("#payBtn").click(function() {
+           //valdata=s
+           if($("#registermobile").val()==""||$("#registermobile").val()=="输入手机号码"||$("#registermobile").val()==null||$("#registermobile").val()==undefined){
+              $("#registermobile").focus();
+              return false;
+            }
+            if($("#password").val()==""||$("#password").val()=="请输入验证码"||$("#password").val()==null||$("#password").val()==undefined){
+              $("#password").focus();
+              return false;
+            }
+            if($("#nickName").val()==""||$("#nickName").val()=="输入店铺名称"||$("#nickName").val()==null||$("#nickName").val()==undefined){
+              $("#nickName").focus();
+              return false;
+            }
+            if($("#corporation").val()==""||$("#corporation").val()=="输入收款人名称"||$("#corporation").val()==null||$("#corporation").val()==undefined){
+              $("#corporation").focus();
+              return false;
+            }
+            if($("#identifyNumber").val()==""||$("#identifyNumber").val()=="输入身份证号码"||$("#identifyNumber").val()==null||$("#identifyNumber").val()==undefined){
+              $("#identifyNumber").focus();
+              return false;
+            }
+            if($("#bankCname").val()==""||$("#bankCname").val()=="输入开户行名称"||$("#bankCname").val()==null||$("#bankCname").val()==undefined){
+              $("#bankCname").focus();
+              return false;
+            }
+            if($("#account").val()==""||$("#account").val()=="输入银行卡号码"||$("#account").val()==null||$("#account").val()==undefined){
+              $("#account").focus();
+              return false;
+            }
+            if($("#address").val()==""||$("#address").val()=="输入详细地址"||$("#address").val()==null||$("#address").val()==undefined){
+              $("#address").focus();
+              return false;
+            }
+            //valdata=e
+            
+           $("#payBtn").attr("disabled","disabled"); 
+           document.getElementById("payBtn").value = "提交中...";
+           var merchantId = $("#merchantId").val();
+           var nickName = $("#nickName").val();
+           var corporation =  $("#corporation").val();
+           var identifyNumber = $("#identifyNumber").val();
+           var bankCname = $("#bankCname").val();
+           var account = $("#account").val();
+           var registermobile = $("#registermobile").val();
+           var address = $("#address").val();
+           //开始保存=s
+           //var f = document.getElementById("registerForm1");
+            //f.action = f.action+"merchantId="+merchantId+"&nickName="+nickName+"&corporation="+corporation+"&identifyNumber="+identifyNumber+"&bankCname="+bankCname+"&account="+account+"&registermobile="+registermobile;
+            //f.submit();
+           $.ajax({
+                   type: "get",     
+                   url: "/merchant/saveMerchant.do",    
+                   data: {
+                           merchantId:merchantId,
+            	           identifyNumber:identifyNumber,
+            	           nickName:encodeURI(nickName), 
+            	           corporation:encodeURI(corporation),
+            	           bankCname:encodeURI(bankCname),
+            	           account:account,
+            	           registermobile:registermobile,
+            	           address:encodeURI(address)
+                      }, 
+                      dataType: "json",
+                      success: function(data) {
+                             window.location.href='/pages/weixin/merchant/merchantSuccess.html?xcode='+data.merchantId;
+                      }
+            });
+            //开始保存=e
+     });
+     //点击下一步=e
+     
+     //获取验证码=s
+     var util = {
+        wait: 60,
+        hsTime: function (that) {
+            _this = this;
+            if (_this.wait == 0) {
+                $('#payBtn-2').removeAttr("disabled").val('重新获取');
+                _this.wait = 60;
+            } else {
+                $(that).attr("disabled", true).val(_this.wait + '秒重发');
+                _this.wait--;
+                setTimeout(function () {
+                    _this.hsTime(that);
+                }, 1000)
+            }
+        }
+    }
+    
+     $("#payBtn-2").click(function() {
+        if($("#registermobile").val()==""||$("#registermobile").val()=="输入手机号码"||$("#registermobile").val()==null||$("#registermobile").val()==undefined){
+              $("#registermobile").focus();
+              return false;
+        }else{
+            var registermobile = $("#registermobile").val();
+	        var merchantId = $("#merchantId").val();
+	        $.ajax({type: "get", url: "/merchant/checkMerchant.do", data: {merchantId:merchantId,registermobile:registermobile},dataType: "json",success: function(data) {
+	            if(data.nickName=="OKAY"){
+	                    $("#registermobile").css("background-color","#FFFFFF");
+	                    $("#rmt").hide();
+	                     util.hsTime('#payBtn-2');
+	                     $.ajax({ 
+	                         type: "get",  
+	                         url: "/vf/rv.do",    
+	                         data: {
+	                              mobile:$("#registermobile").val(),
+	                              type:'1'
+	                              }, 
+	                         contentType: "application/json; charset=utf-8",  
+	                         dataType: "json",     
+	                         success: function(data) {
+	                             document.getElementById("canon").value = data.verifyNo;
+	                         }  
+                          });   
+	            }else{
+            	        document.getElementById("rmt").innerHTML= "手机号:"+$("#registermobile").val()+"已注册店铺";
+            	        document.getElementById("registermobile").style.color="#8f8f8f";
+            	        $("#registermobile").val("输入手机号码");
+            	        $('#registericon1').hide();
+	            	    $("#rmt").show();
+	            }
+	          }
+	         }); 
+        }
+     });
+     //获取验证码=e
+});
+function chkd(){
+     if($("#account").val()==""||$("#account").val()=="输入银行卡号码"||$("#account").val()==null||$("#account").val()==undefined){
+              $("#account").focus();
+              return false;
+     }
+};
+</script>
+
+<body style="background-color:#f4f4f4;">
+    <div class="mth1">
+    </div>
+    <div class="register"  id="fstpg">
+    <form id="registerForm1" action="/merchant/saveMerchant.do?" method="get">
+    <input  type="hidden" name="merchantId" id="merchantId"/>
+	<input  type="hidden" name="cans" id="cans" value="false"/>
+	<input  type="hidden" name="canon" id="canon"/>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">+86</span><span><img id="registericon1" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="tel" id="registermobile" name="registermobile" style="width:80%;" maxlength="11" value="输入手机号码" />
+      <br/><label class="tip" id="rmt" style="display:none">该手机号已注册店铺</label>
+    </div>
+    
+    <div class="left mt10" style="width:80%;">
+        <input type="tel" id="password" name="password" style="width:60%;"value="请输入验证码" />
+        <input type="button" id="payBtn-2"  style="color:#fff;font-size:16px; background:#2d94fb;border:none;border-radius:2px; width:38%;" value="获取验证码" />
+        <br/><label class="tip" id="password-m" style="display:none">手机号或类型不正确</label>
+       <!-- <br/><label class="tip" id="password-m1" style="display:none">验证码不正确</label>
+        <br/><label class="tip" id="password-m2" style="display:none">验证码已过期，请重新获取</label>-->
+    </div>
+    
+    <!-- //new add by wangyingce -->
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">店铺 :</span><span><img id="registericon3" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="nickName" name="nickName" style="width:80%;" maxlength="50" value="输入店铺名称" />
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">收款人 :</span><span><img id="registericon4" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="corporation" name="corporation" style="width:80%;" maxlength="50" value="输入收款人名称" />
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">身份证 :</span><span><img id="registericon5" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="identifyNumber" name="identifyNumber" style="width:80%;" maxlength="18" value="输入身份证号码" />
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">开户行 :</span><span><img id="registericon6" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="bankCname" name="bankCname" style="width:80%;" maxlength="50" value="输入开户行名称" />
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">银行卡 :</span><span><img id="registericon7" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="account" name="account" style="width:80%;" maxlength="50" value="输入银行卡号码" />
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <span class="registerinputlabel">地址 :</span><span><img id="registericon8" class="registerinputicon" src="/pages/weixin/merchant/resource/images/registericon1.png"/></span>
+      <input type="text" id="address" name="address" style="width:80%;" maxlength="50" value="输入详细地址" />
+      <br/><label class="tip" id="password-m">例如:浙江省，杭州市，上城区，中河中路3号</label>
+    </div>
+    
+    
+    <div class="mid mt10" style="display: none;">
+      <span class="registerinputlabel">密码 :</span><span><img id="registericon2" class="registerinputicon" style="width:24px;" src="/pages/weixin/merchant/resource/images/registericon2.png"/></span>
+      <input type="password" id="registerkeyword" name="registerkeyword" style="width:80%;"/>
+      <label class="keywordtip">设置登入密码</label>
+      <br/><label class="error" for="registerkeyword"></label>
+    </div>
+    <div class="mid mt10" style="width:80%;">
+      <input type="button" id="payBtn"  style="color:#fff;font-size:16px; background:#2d94fb;border:none;border-radius:2px; width:100%;" value="下一步" />
+    </div>
+    </form>
+    <div class="mid agreement">
+        <img class="yesbtn" src="/pages/weixin/merchant/resource/images/yesBtn.png"/>
+        <span>点击"下一步",即表示本人已同意<a href="#">《注册协议》</a></span>
+    </div>
+    </div>
+    <!-- 提交成功后的页面 -->
+    <div id="scdpg" style="display: none;">
+         <div class="headBar">
+        <a href="javascript:history.back(-1)"><img class="headleft" src="/pages/weixin/merchant/resource/images/backjt.png"/></a>
+        <span>店铺注册</span>
+        </div>
+        <div class="mth1"></div>
+        <div class="mid mt20">
+        <img class="successimg" src="/pages/weixin/merchant/resource/images/successicon.png"/>
+        <span class="successtip">恭喜，您已成功注册！</span>
+        </br>
+        </br>
+        <span class="successtip-ex">请长按屏幕保存支付二维码</span>
+        </br>
+        <div align="center">
+           <img id="oldqrcodeimg" src="" alt="" />
+         </div>
+    </div>
+    </div>
+</body>
+</html>

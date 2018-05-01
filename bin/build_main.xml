@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     可在各项目中重用的build.xml基础文件
+     本脚本负责定义目录,定义Ant-Contrib,
+     并引入其余三个可重用Build文件.
+     最后显示用户可选择的任务,以及init,clean,update任务的定义
+ -->
+<project name="build-main" default="usage">
+	<!-- ======================================
+			 定义系统目录
+			 ======================================= -->
+	<property name="src.dir" value="src/java" />
+	<property name="resources.dir" value="src/resources/" />
+	<property name="web.dir" value="webapp" />
+	<property name="build.dir" value="${web.dir}/WEB-INF/classes" />
+	<property name="target.dir" value="target" />
+	<property name="test.dir" value="test/" />
+	<property name="test.src" value="${test.dir}/unit/" />
+	<property name="test.resources" value="${test.dir}/resources/" />
+	<property name="functional_test.src" value="${test.dir}/functional/" />
+	<property name="test.build" value="${target.dir}/test/classes" />
+	<property name="test.data" value="${target.dir}/test/unit_data" />
+	<property name="functional_test.data" value="${target.dir}/test/functional_data" />
+	<property name="release.warfile" value="${target.dir}/war/${ant.project.name}.war" />
+
+	<!-- ======================================
+			 定义Ant-Contrib
+			 ======================================= -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="lib/ant/ant-contrib.jar" />
+		</classpath>
+	</taskdef>
+ 
+	<!-- 引入其余三个可重用build模块 -->
+	<!-- 编译脚本 -->
+	<import file="build_compile.xml" />
+	<!-- 测试脚本 -->
+	<import file="build_test.xml" /> 
+	<!--tomcat服务器启停脚本 -->
+	<import file="build_tomcat.xml" />
+
+	<!-- ===================================
+			 显示可选任务，并按用户的选择执行任务
+			 ==================================== -->
+	<target name="usage" description="显示可选任务">
+		<echo message="${ant.project.name} Build 文件" />
+		<echo message="------------------------------------------------------" />
+		<echo message="可选Target:" />
+		<echo message="" />
+		<echo message="quickstart    --&gt; 快速启动项目" />
+		<echo message="compile       --&gt; 编译Java文件并复制资源文件" />
+		<echo message="war           --&gt; 生成项目war文件" />
+		<echo message="test          --&gt; 运行JUnit单元测试" />
+		<echo message="fun-test      --&gt; 运行Selenium功能测试" />
+		<echo message="upgrade       --&gt; 更新项目" />
+		<echo message="add-component --&gt; 安装新构件" />
+
+		<input message="请选择一个Target" validargs="quickstart,compile,war,test,fun-test,upgrade,add-component,clean" addproperty="ant.task" />
+		<antcall target="${ant.task}" />
+	</target>
+
+	<!-- ===================================
+			 初始化项目,建立目录并更新项目的依赖jar.
+		 ==================================== -->
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${test.build}" />
+		<mkdir dir="${test.data}" />
+		<mkdir dir="${functional_test.data}" />
+	</target>
+
+	<!-- ===================================
+			 清理项目,删除classes目录
+			 ==================================== -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${test.build}" />
+	</target>
+
+	<!-- ===================================
+			 更新项目,更新全部classes及jar
+			 ==================================== -->
+	<target name="upgrade" depends="clean,compile" />
+
+	<!-- ===================================
+			 快速开始项目，编译项目，部署到tomcat并打开浏览器
+		 ==================================== -->
+	<target name="quickstart" depends="compile,tomcat.quickstart" />
+
+	<target name="deploy" depends="compile,tomcat.deploy" />
+</project>

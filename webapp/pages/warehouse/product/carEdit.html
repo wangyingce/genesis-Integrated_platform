@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理系统</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/jquery.wysiwyg.old-school.css">
+
+<!-- jQuery AND jQueryUI -->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/min.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="stylesheet" href="../css/style2.css">
+<script type="text/javascript" src="../Widget/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="../Widget/swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="../Widget/swfupload/swfupload.speed.js"></script>
+<script type="text/javascript" src="../Widget/swfupload/handlers.js"></script>
+<!-- 引入angularjs -->
+<script src="http://cdn.bootcss.com/angular.js/1.5.0/angular.min.js"></script>
+</head>
+<body>
+
+
+
+<!--     内容      -->
+<div id="content" class="white">
+
+		<div class="bloc">
+						<input type="text" id="carId" name="carId"  style="display:none">
+						<input type="text" id="carImgPath" name="carImgPath"  style="display:none">
+				<div class="title">新增车型<a class="toggle"></a></div>
+				<div class="content" >
+						<div class="input" style="300px;" ng-app="carEditApp" ng-controller="carEditCtrl" >
+						        <canvas id="serCanvas" width="200" height="20" style="border:0px solid #d3d3d3;"></canvas>
+								<label for="file">选择新车系</label>
+								<select id="carserId" ng-model="carserng"><option ng-repeat="cnm in carseries">{{cnm.carserId}}-{{cnm.carserName}}</option></select>
+						</div>
+						<div class="input">
+								<label for="input1">车型名称</label>
+								<input type="text" id="carName">
+						</div>
+						<div class="input">
+								<label for="file">车型图片</label>
+						         <div class="demo l_f">
+	                              <div class="logobox"><div class="resizebox"><img src="../images/image.png" width="100px" alt="" height="100px"/></div></div>	
+                                  <div class="logoupload">
+                                   <div class="btnbox"><a id="uploadBtnHolder" class="uploadbtn" href="javascript:;">上传替换</a></div>
+                                   <div style="clear:both;height:0;overflow:hidden;"></div>
+                                   <div class="progress-box" style="display:none;">
+                                     <div class="progress-num">上传进度：<b>0%</b></div>
+                                     <div class="progress-bar"><div style="width:0%;" class="bar-line"></div></div>
+                                   </div>
+                                  </div>            
+                                 </div> 
+						</div>
+						<div class="input">
+								<label for="input1">官方指导价</label>
+								<input type="text" id="carStandPrice" onKeyUp="amount(this)" onBlur="overFormat(this)">
+						</div>
+						<div class="submit">
+								<input type="submit" id="caradd" value="确定">
+						</div>
+				</div>
+		</div>
+</div>
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+</body>
+</html>
+<script type="text/javascript">
+var carEditApp = angular.module("carEditApp", []);
+carEditApp.controller('carEditCtrl', function($scope, $http) {
+	$http.get("/warehouse/queryCarCeries.do").success(
+		    function (response) {
+		    	$scope.carseries = response.jsondata;
+		        }
+		    );
+});
+</script>
+<script type="text/javascript">
+$(function() { 
+	   var rqstUrl=window.location.href;
+	   //alert(rqstUrl);
+	   if(rqstUrl.indexOf("=")>=0){
+		   var carId = rqstUrl.substring(rqstUrl.indexOf("=")+1, rqstUrl.length);
+		   if(carId!=null&&carId!=undefined){
+			   $.ajax({
+				   type: "get", 
+		              url: "/warehouse/queryCars.do", 
+		              data: {carId:carId},
+		              dataType: "json",
+		              success: function(data) {
+		            	    document.getElementById("carId").value = data.carId;
+					        document.getElementById("carName").value = data.carName;
+					    	document.getElementById("carStandPrice").value = data.carStandPrice;
+					    	document.getElementById("carImgPath").value = data.carImgPath;
+					    	//document.getElementById('oldSer').innerHTML = "<font color='#C0C0C0'>原始车系："+data.carserName+"</font>";
+					    	var ctx=document.getElementById("serCanvas").getContext("2d");
+					    	ctx.font="10px Arial";
+					    	ctx.fillText("原始车系："+data.carserName,0,10);
+					    	var up_path = data.imgPath;
+			            	var	_up_width = 120;
+			            	var	_up_height = 120;
+			            	$(".logobox .resizebox").css({width: _up_width, height: _up_height});
+			            	$(".logobox .resizebox > img").attr('src', up_path);
+			            	$(".logobox .resizebox > img").attr('width', _up_width);
+			            	$(".logobox .resizebox > img").attr('height', _up_height);
+		              },
+			   });
+		   }
+	   }
+});
+
+$('#caradd').click(function() {
+	var carId = document.getElementById("carId").value;
+	var carserId = document.getElementById("carserId").value;
+	var carName = document.getElementById("carName").value;
+	var carStandPrice = document.getElementById("carStandPrice").value;
+	var carImgPath = document.getElementById("carImgPath").value;
+	//alert("carId>"+carId+",carserId>"+carserId+",carName>"+carName+",carStandPrice>"+carStandPrice+",carImgPath>"+carImgPath);
+	if(carserId.indexOf("-")<0){
+		alert("请选择车系统");
+        return false;
+	}else{
+		carserId = carserId.substring(0,carserId.indexOf("-"));
+		//alert("two step:carserId>"+carserId);
+	}
+	//return false;
+
+	if(carName==""||carName==null||carName==undefined){
+		document.getElementById("carName").focus();
+        return false;
+      }
+	if(carStandPrice==""||carStandPrice==null||carStandPrice==undefined){
+		document.getElementById("carStandPrice").focus();
+        return false;
+      }
+	if(carImgPath==""||carImgPath==null||carImgPath==undefined){
+		document.getElementById("carImgPath").focus();
+        return false;
+      }
+	/**aj submit start----------------------------------------*/
+	$.ajax({
+	    type: "get",     
+	    url: "/warehouse/addCar.do",    
+	    data: {
+	    	carId:carId,
+	    	carserId:carserId,
+	    	carName:encodeURI(carName),
+	    	carStandPrice:carStandPrice,
+	    	carImgPath:carImgPath
+	    }, 
+	       dataType: "json",
+	       success: function(res) {
+	    	   //alert(res);
+	    	   if(res=="sus"){
+	    		   if(carId==""||carId==null||carId==undefined){
+	    			   alert("新增车型成功");
+	    		   }else{
+	    			   alert("更新车型成功");
+	    		   }
+	    		   window.location.href = "car.html";
+	    		       //document.getElementById("message").innerHTML = "新增车系成功";
+	            }else{
+	            	  alert("错误");
+		    		   //document.getElementById("message").innerHTML = "新增车系失败";
+	            }
+	       }
+	});
+	/**aj submit end----------------------------------------*/
+});
+
+/**
+* 实时动态强制更改用户录入
+* arg1 inputObject
+**/
+function amount(th){
+    var regStrs = [
+        ['^0(\\d+)$', '$1'], //禁止录入整数部分两位以上，但首位为0
+        ['[^\\d\\.]+$', ''], //禁止录入任何非数字和点
+        ['\\.(\\d?)\\.+', '.$1'], //禁止录入两个以上的点
+        ['^(\\d+\\.\\d{2}).+', '$1'] //禁止录入小数点后两位以上
+    ];
+    for(i=0; i<regStrs.length; i++){
+        var reg = new RegExp(regStrs[i][0]);
+        th.value = th.value.replace(reg, regStrs[i][1]);
+    }
+}
+ 
+/**
+* 录入完成后，输入模式失去焦点后对录入进行判断并强制更改，并对小数点进行0补全
+* arg1 inputObject
+* 这个函数写得很傻，是我很早以前写的了，没有进行优化，但功能十分齐全，你尝试着使用
+* 其实有一种可以更快速的JavaScript内置函数可以提取杂乱数据中的数字：
+* parseFloat('10');
+**/
+function overFormat(th){
+    var v = th.value;
+    if(v === ''){
+        v = '0.00';
+    }else if(v === '0'){
+        v = '0.00';
+    }else if(v === '0.'){
+        v = '0.00';
+    }else if(/^0+\d+\.?\d*.*$/.test(v)){
+        v = v.replace(/^0+(\d+\.?\d*).*$/, '$1');
+        v = inp.getRightPriceFormat(v).val;
+    }else if(/^0\.\d$/.test(v)){
+        v = v + '0';
+    }else if(!/^\d+\.\d{2}$/.test(v)){
+        if(/^\d+\.\d{2}.+/.test(v)){
+            v = v.replace(/^(\d+\.\d{2}).*$/, '$1');
+        }else if(/^\d+$/.test(v)){
+            v = v + '.00';
+        }else if(/^\d+\.$/.test(v)){
+            v = v + '00';
+        }else if(/^\d+\.\d$/.test(v)){
+            v = v + '0';
+        }else if(/^[^\d]+\d+\.?\d*$/.test(v)){
+            v = v.replace(/^[^\d]+(\d+\.?\d*)$/, '$1');
+        }else if(/\d+/.test(v)){
+            v = v.replace(/^[^\d]*(\d+\.?\d*).*$/, '$1');
+            ty = false;
+        }else if(/^0+\d+\.?\d*$/.test(v)){
+            v = v.replace(/^0+(\d+\.?\d*)$/, '$1');
+            ty = false;
+        }else{
+            v = '0.00';
+        }
+    }
+    th.value = v; 
+}
+</script>
+
+<script type="text/javascript">
+function updateProgress(file) {
+	$('.progress-box .progress-bar > div').css('width', parseInt(file.percentUploaded) + '%');
+	$('.progress-box .progress-num > b').html(SWFUpload.speed.formatPercent(file.percentUploaded));
+	if(parseInt(file.percentUploaded) == 100) {
+		// 如果上传完成了
+		$('.progress-box').hide();
+	}
+}
+
+function initProgress() {
+	$('.progress-box').show();
+	$('.progress-box .progress-bar > div').css('width', '0%');
+	$('.progress-box .progress-num > b').html('0%');
+}
+
+function successAction(fileInfo) {
+	var up_path = fileInfo.path;
+	var up_width = fileInfo.width;
+	var up_height = fileInfo.height;
+	var _up_width,_up_height;
+	if(up_width > 120) {
+		_up_width = 120;
+		_up_height = _up_width*up_height/up_width;
+	}
+	$(".logobox .resizebox").css({width: _up_width, height: _up_height});
+	$(".logobox .resizebox > img").attr('src', up_path);
+	$(".logobox .resizebox > img").attr('width', _up_width);
+	$(".logobox .resizebox > img").attr('height', _up_height);
+}
+
+var swfImageUpload;
+$(document).ready(function() {
+	var settings = {
+		flash_url : "../Widget/swfupload/swfupload.swf",
+		flash9_url : "../Widget/swfupload/swfupload_fp9.swf",
+		upload_url: "./UpLoadFileServlet.action",// 接受上传的地址
+		file_size_limit : "5MB",// 文件大小限制
+		file_types : "*.jpg;*.gif;*.png;*.jpeg;",// 限制文件类型
+		file_types_description : "图片",// 说明，自己定义
+		file_upload_limit : 100,
+		file_queue_limit : 0,
+		custom_settings : {},
+		debug: false,
+		// Button settings
+		button_image_url: "../Widget/swfupload/upload-btn.png",
+		button_width: "95",
+		button_height: "30 ",
+		button_placeholder_id: 'uploadBtnHolder',
+		button_window_mode : SWFUpload.WINDOW_MODE.TRANSPARENT,
+		button_cursor : SWFUpload.CURSOR.HAND,
+		button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
+		
+		moving_average_history_size: 40,
+		
+		// The event handler functions are defined in handlers.js
+		swfupload_preload_handler : preLoad,
+		swfupload_load_failed_handler : loadFailed,
+		file_queued_handler : fileQueued,
+		file_dialog_complete_handler: fileDialogComplete,
+		upload_start_handler : function (file) {
+			initProgress();
+			updateProgress(file);
+		},
+		upload_progress_handler : function(file, bytesComplete, bytesTotal) {
+			updateProgress(file);
+		},
+		upload_success_handler : function(file, data, response) {
+			// 上传成功后处理函数
+			//var fileInfo = eval("(" + data + ")");
+			//successAction(fileInfo);
+			if(data.indexOf("错误")!=-1){
+				alert("错误信息:"+data);
+			}else{
+				document.getElementById("carImgPath").value = data;
+				//根据上传成功返回的id查询文件表并展示预览
+				$.ajax({
+			        type: "get",     
+			        url: "/brand/findBrandImage.do",    
+			        data: {
+			        	brandPicture:data
+			        }, 
+			           dataType: "json",
+			           success: function(res) {
+			                //alert("filepath:"+res.filepath);
+			                var up_path = res.filepath;
+			                alert(up_path);
+			            	var	_up_width = 120;
+			            	var	_up_height = 120;
+			            	$(".logobox .resizebox").css({width: _up_width, height: _up_height});
+			            	$(".logobox .resizebox > img").attr('src', up_path);
+			            	$(".logobox .resizebox > img").attr('width', _up_width);
+			            	$(".logobox .resizebox > img").attr('height', _up_height);
+			           }
+			    });
+			}
+		},
+		upload_error_handler : function(file, errorCode, message) {
+			alert('上传发生了错误！');
+		},
+		file_queue_error_handler : function(file, errorCode, message) {
+			if(errorCode == -110) {
+				alert('您选择的文件太大了。');	
+			}
+		}
+	};
+	swfImageUpload = new SWFUpload(settings);
+});
+</script>

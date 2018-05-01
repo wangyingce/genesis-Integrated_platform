@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>后台管理系统</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/jquery.wysiwyg.old-school.css">
+
+<!-- jQuery AND jQueryUI -->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/min.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="stylesheet" href="../css/style2.css">
+
+</head>
+<body>
+
+
+
+<!--     内容      -->
+<div id="content" class="white">
+		<h1><img src="../images/posts.png" alt="">报备数据库查询</h1>
+		
+		<!--操作栏-->
+		<div class="bloc">
+				<div class="title"> 报备数据库查询 <a class=""></a></div>
+						<form name="fm" id='fm' action="${url}" namespace="/relation" method="post">
+							<div id="proposalCondition">
+								<table id="queryConditionTable" width="100%" border="0" class="fix_table fix_table_left" >
+									<tr>
+										<td colspan="2" height="60">
+											<div id="crash_menu">
+												<h2 class='default'>
+													   查询区域
+												</h2>
+											</div>
+										</td>
+										<td colspan="2" height="60">
+											<div id="crash_menu">
+											</div>
+										</td>
+										<td colspan="2" height="60">
+											<div id="crash_menu">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="right3" nowrap="nowrap">
+											     报备序号：
+										</td>
+										<td class="right3">
+											<input type="text" data-role="none" name="prpCproposalVo.policyNo"
+												id="prpCproposalVo.policyNo" value=""
+												class='input_w w_p80' onchange='changeToUpperCase(this);' maxlength="22"/>
+										</td>
+										<td class="right3" nowrap="nowrap">
+											VIN码：
+										</td>
+										<td class="right3">
+											<input type="text" data-role="none" name="prpCproposalVo.proposalNo"
+												id="prpCproposalVo.proposalNo" value="" 
+												maxlength="22" class='input_w w_p80' onchange='changeToUpperCase(this);' />
+										</td>
+										<td class="" nowrap="nowrap">
+										</td>
+										<td class="right3">
+										</td>
+									</tr>
+									<tr>
+										<td class="right3" nowrap="nowrap">
+											报备省份：
+										</td>
+										<td class="right3">
+											<input data-role="none" type="text" name="prpCproposalVo.licenseNo"
+												id="prpCproposalVo.licenseNo" value=""
+												class='input_w w_p80' onchange='changeToUpperCase(this);'/>
+										</td>
+										<td class="right3" nowrap="nowrap">
+											报备单位：
+										</td>
+										<td class="right3">
+											<input data-role="none" type="text" name="prpCproposalVo.vinNo"
+												id="prpCproposalVo.vinNo" value="" onchange='changeToUpperCase(this);'
+												class='input_w w_p80' />
+										</td>
+										<td class="right3" nowrap="nowrap">
+											品系：
+										</td>
+										<td class="right3">
+											<input data-role="none" type="text" name="prpCproposalVo.insuredName"
+												id="prpCproposalVo.insuredName" value="" class='input_w w_p80' />
+										</td>
+									</tr>
+									<tr>
+										<td class="right3" nowrap="nowrap">
+											报备人：
+										</td>
+										<td class="right3">
+											<input data-role="none" type="text" name="prpCproposalVo.insuredName"
+												id="prpCproposalVo.insuredName" value="" class='input_w w_p80' />
+										</td>								
+										<td class="right3" nowrap="nowrap">
+											提交日期：
+										</td>
+										<td class="right3" nowrap="nowrap">
+									      	<input type="text" name="prpCproposalVo.startDate" id="prpCproposalVo.startDate" 
+									      		class="w_p400" maxlength="10" onblur="checkFullDate(this);" description="起保日期"/>
+												<div id="calContainer1" style="position: absolute;"></div>
+										</td>	
+										<td class="" nowrap="nowrap">
+										</td>
+										<td class="right3">
+										</td>
+									</tr>			
+									<tr>
+										<td class="right3" nowrap="nowrap">
+											报备人2：
+										</td>
+										<td class="right3">
+											<input data-role="none" type="text" name="prpCproposalVo.insuredName"
+												id="prpCproposalVo.insuredName" value="" class='input_w w_p80' />
+										</td>								
+										<td class="right3" nowrap="nowrap">
+											报备日期：
+										</td>
+										<td class="right3" nowrap="nowrap">
+									      	<input type="text" name="prpCproposalVo.startDate" id="prpCproposalVo.startDate" 
+									      		class="w_p400" maxlength="10" onblur="checkFullDate(this);" description="起保日期"/>
+												<div id="calContainer1" style="position: absolute;"></div>
+										</td>	
+										<td class="" nowrap="nowrap">
+										</td>
+										<td class="right3">
+										</td>	
+									</tr>	 
+									<tr id="taskCont3">
+										<td class="right3" nowrap="nowrap">
+											啥日期：
+										</td>
+										<td class="right3" nowrap="nowrap">
+									      	<input type="text" name="prpCproposalVo.signDate" id="prpCproposalVo.signDate"
+									      		class="w_p400" maxlength="10" onblur="checkFullDate(this);" description="签单日期"/>
+												<div id="calContainer4" style="position: absolute;"></div>
+										</td>	
+									    <td class="right3" nowrap="nowrap">
+									    	只显示合计：
+									    </td>
+									    <td>
+									    	<input type="checkBox" id="prpCproposalVo.queryFlag" name="prpCproposalVo.queryFlag" value="0"/>
+									    </td>
+									    <td class="right3" nowrap="nowrap">
+									    	只显示明细：
+									    </td>
+									    <td>
+									    	<input type="checkBox" id="prpCproposalVo.queryFlag" name="prpCproposalVo.queryFlag" value="0"/>
+									    </td>
+									</tr>
+									<tr>
+										 <td class="" nowrap="nowrap">
+									    	
+									    </td>
+									     <td class="" nowrap="nowrap">
+									    	
+									    </td>
+													<td class="page1" align = "center">
+														<input type="button" value="查  询" name="insured_btn_Save" id="insured_btn_Save" class="button_ty" onClick="executeQuery1(1,10);" />
+														<input type="hidden" id="moreRecordFlag" name="moreRecordFlag" value="${moreRecordFlag}"/>
+													</td>
+										  <td class="left4" nowrap="nowrap">
+									    	
+									    </td>
+													<td class="page1" align = "center">
+														<input type="button" value="清 空" name="insured_btn_reset" class="button_ty" onClick="resetFormValue();" style="margin-right:60px"  />
+													</td>
+									     <td class="left4" nowrap="nowrap">
+									    </td>
+									</tr>
+								</table>	
+							</div>
+					</form>
+		<div class="title"> 报备基本信息 <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="toggle"></a></div>
+				<div class="content">
+						<table>
+								<thead>
+										<tr>
+												<th>提交日期</th>
+												<th>报备份</th>
+												<th>报备单位</th>
+												<th>报备联系电话</th>
+												<th>报备车型</th>
+												<th>详细</th>
+										</tr>
+								</thead>
+								<tbody>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+									<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </a></td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a></td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+										<tr>
+												<td>20180102</td>
+												<td>山东</td>
+												<td>德州新一</td>
+												<td>13791329215</td>
+												<td>CA4250P66K24T1A1E5</td>
+												<td><a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" title="详细信息"> <img src="../images/edit.png" alt=""></a> </td>
+										</tr>
+								</tbody>
+						</table>
+						<div class="pagination"> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="prev">«</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">1</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="current">2</a> ... <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">21</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#">22</a> <a href="http://www.grafikart.fr/demo/coreadmin/index.php?p=table#" class="next">»</a> </div>
+				</div>
+		</div>
+</div>
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
+</body>
+</html>
+
+<script>
+var isFirstLoad = true;  
+var contentDataTable;
+var contentColumnHeaders;
+var inQuery = false;
+var syncFlag = true;
+var colIdInfoAndSubDialogs = new  HashMap();
+var _collectWait = null ;
+var _uploadWait = null ;
+var _saveWait = null ;
+var isInit=false;
+// 北京信息采集与查询 add by wupeng
+var dialog=null; // 采集panle
+var queryCustomerDialog=null;// 查询panle
+/* 查询结果列表集 */
+// 投保查询结果列表新增三个字段并展示，add by chenbang 20160926
+// 11245 需要在保批单查询结果中增加录单员名称字段 ADD BY xuxin 20170803 START
+//11587 保批单查询优先展示当天单,add by yangyufan 20170922 START
+var tableHeader={
+   resultsList: "data",
+   fields: ["Submissiondate","Thebackup","Reportedunit","Reportedphonenumber","Reportedmodels","Text1"],
+   totalRecords: "totalRecords"
+};
+//11587 保批单查询优先展示当天单,add by yangyufan 20170922 end
+var i = 0;
+/** 页面初始化方法 */
+function init() {
+	YAHOO.widget.Column.formatDate = function(elCell, oRecord, oColumn, oData) {
+        if(oData) {
+           var value = oData;
+           var date = new Date(oData.time);
+           value = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+           elCell.innerHTML = value; 
+        } else {
+           	elCell.innerHTML = ""; 
+        } 
+	};
+	
+	/* 定义报价单查询数据接收以后的显示方式 */
+	contentColumnHeaders1 = [
+		{key : "Submissiondate",text : "提交日期",width : "20em",sortable : true,type : "link"},
+		{key : "Thebackup",text : "报备份",width : "25em",sortable : true,type : "link"}, 
+		{key : "Reportedunit",text : "报备单位",width : "15em",sortable : true,type : "string",dbselect : true}, 
+		{key : "Reportedphonenumber",text : "报备联系电话",width : "20em",sortable : true,type : "link",dbselect : true},
+		{key : "Reportedmodels",text : "报备车型",width : "20em",sortable : true,type : "link"},
+		{key : "Text1",text : "详细",width : "30em",sortable : true,type : "link"}
+	];
+	res(document.getElementById("queryText"));
+	res(document.getElementById("queryText1"));
+	var moreRecordFlag = document.getElementById("moreRecordFlag").value;
+	if(moreRecordFlag=='1'){
+		queryTask();
+	}
+	// 身份信息采集及上传按钮可拖动
+	dragIdentifyInfo();// add by wupeng 2016-11-11
+}
+/** 查询报价单数据 */
+function executeQuery1(pageNo,pageSize){	
+    i = pageSize * (pageNo - 1);
+	if (isNaN(parseInt(pageNo))) {
+		pageNo = 1;
+	}
+	if (isNaN(parseInt(pageSize))) {
+		pageSize = 10;
+	}
+	cls(document.getElementById("queryText1"));
+	// 定义myColumnSet变量，设置数据接收以后的显示方式
+	var myColumnSet = new YAHOO.widget.ColumnSet(contentColumnHeaders1);
+	// 定义获取数据的数据源，这里是一个action请求
+	var myDataSource = new YAHOO.util.DataSource("${ctx}/login/initUser.do");
+	// 返回数据的解析类型，这里定义的是JSON格式
+	myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSON;
+	// 返回的数据中取出哪些信息？由tableHeader定义
+	myDataSource.responseSchema = tableHeader;
+	// 在数据源上注册事件，初始化分页工具栏
+	myDataSource.subscribe("responseParseEvent", SINOSOFT.util.navigation);
+	// 获取到页面上的fm表单
+	
+	var fm = YAHOO.util.Dom.get("fm");
+	
+	// 将fm表单中的数据作为查询数据，发送到后台进行查询
+	myDataSource.connMgr.setForm(fm);
+	// 定义初始化参数，pageSize和pageNo，用于分页
+	var initialRequest = "pageSize=" + pageSize + "&pageNo=" + pageNo;
+	// 定义其他配置参数
+	var myConfiges = {
+		scrollable:true,
+		initialRequest:initialRequest,
+		paginator:false,
+		width:"100px",
+		rowSingleSelect:true
+	};
+	
+	// 发送请求，并且在返回数据之后构造表格
+	contentDataTable = new YAHOO.widget.DataTable("content0", myColumnSet,myDataSource, myConfiges);
+	
+    res(document.getElementById("queryText1"));
+}
+</script>

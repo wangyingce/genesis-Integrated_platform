@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>欢迎使用微信支付</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <script src="/common/js/jquery/js/jquery.min.js"></script>
+    <!-- <script src="./js/inputpay.js"></script> -->
+    <link rel="stylesheet" href="/style/weixinMobile/css/weui.css"/>
+    <link rel="stylesheet" href="/style/weixinMobile/example.css"/>
+    <script src="/common/js/ysylCommon.js"></script>
+	<script>
+$(function() {
+	function onBridgeReady(){
+		WeixinJSBridge.call('hideOptionMenu');
+	}
+
+	if (typeof WeixinJSBridge == "undefined"){
+		if( document.addEventListener ){
+	    	document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+	    }else if (document.attachEvent){
+	        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+	        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+	    }
+	}else{
+	    onBridgeReady();
+	}
+	$.ajax({     
+        type: "get",     
+        url: "/merchant/gm.do",    
+        data: {
+        	merchantId:getArgsFromHref(window.location.href,"m")
+        }, 
+        contentType: "application/json; charset=utf-8",     
+        dataType: "json",     
+        success: function(data) {
+        	$("#sname").text(data.nickName); 
+        },     
+        error: function(err) {     
+        }     
+    });   
+	
+	
+    $("#payBtn").click(function() {
+    	$("#payBtn").addClass("weui_btn_disabled"); 
+    	$("#payBtn").attr("disabled","disabled"); 
+    	
+   	 	var isNum = /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/;
+        var money = $("#money").val();
+        if(!isNum.test(money)){
+            $('#dialog2').show();
+	        $('#dialog2').find('.weui_btn_dialog').on('click', function () {
+	            $('#dialog2').hide();
+	            $("#payBtn").removeClass("weui_btn_disabled");
+	            $("#payBtn").attr("disabled",false);
+	        });
+            return false;
+        }
+    
+        $.ajax({     
+            type: "get",     
+            url: "/wxp/pwx.do",    
+            data: {
+            	openId:getArgsFromHref(window.location.href,"o"),
+            	money:money,
+            	businessNo:getArgsFromHref(window.location.href,"m")
+            }, 
+            contentType: "application/json; charset=utf-8",     
+            dataType: "json",     
+            success: function(data) {
+            	WeixinJSBridge.invoke('getBrandWCPayRequest',{
+             		 "appId"	:	data.appId,
+             		 "timeStamp":	data.timeStamp,
+             		 "nonceStr"	:	data.nonceStr,
+             		 "package"	: 	data.packageStr,
+             		 "signType" :	data.signType,
+	         		 "paySign"	:	data.paySign
+	      		},function(res){
+	   				WeixinJSBridge.log(res.err_msg);
+	   	            if(res.err_msg == "get_brand_wcpay_request:ok"){
+	   	            	WeixinJSBridge.invoke('closeWindow');
+	   	            }else if(res.err_msg == "get_brand_wcpay_request:cancel"){  
+						$("#payBtn").removeClass("weui_btn_disabled");
+						$("#payBtn").attr("disabled",false);
+	   	            }else{
+	   	               	alert("支付失败!");
+			            $("#payBtn").removeClass("weui_btn_disabled");
+			            $("#payBtn").attr("disabled",false);
+	   	            }
+	   			})   
+            },     
+            error: function(err) {     
+                alert("error"+err); 
+                $("#payBtn").removeClass("weui_btn_disabled");
+	            $("#payBtn").attr("disabled",false);
+            }     
+        });     
+    
+        //禁用按钮的提交      
+        return false;     
+    });     
+});
+	</script>
+  </head>
+  
+	<body>
+	<div class="page">
+		<div class="bd">
+            <div class="weui_panel_bd">
+                <div class="weui_media_box weui_media_appmsg">
+                    <div class="weui_media_hd">
+                        <img class="weui_media_appmsg_thumb" src="/style/common/images/logo.jpeg" alt="">
+                    </div>
+                    <div class="weui_media_bd">
+                        <h4 class="weui_media_title" id="sname">合作商户</h4>
+                        <p class="weui_media_desc">友商友良合作商户</p>
+                    </div>
+                </div>
+            </div>
+			<!-- <div class="weui_cells_title">表单</div> -->
+			<div class="weui_cells weui_cells_form">
+				<div class="weui_cell">
+					<div class="weui_cell_hd">
+						<label class="weui_label">金额</label>
+					</div>
+					<div class="weui_cell_bd weui_cell_primary">
+						<input class="weui_input" type="number" step="0.01" min="0.01"
+							name="money" id="money" placeholder="请输入需要支付的金额" />
+					</div>
+				</div>
+			</div>
+			<!-- <div class="weui_cells_tips">底部说明文字底部说明文字</div> -->
+			<div class="weui_btn_area">
+				<input type="button" value="支付" id="payBtn"
+					class="weui_btn weui_btn_primary" />
+			</div>
+		</div>
+		<div class="weui_dialog_alert" id="dialog2" style="display: none;">
+			<div class="weui_mask"></div>
+			<div class="weui_dialog">
+				<div class="weui_dialog_hd">
+					<strong class="weui_dialog_title">友情提示</strong>
+				</div>
+				<div class="weui_dialog_bd">您输入的金额有误，请您检查</div>
+				<div class="weui_dialog_ft">
+					<a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

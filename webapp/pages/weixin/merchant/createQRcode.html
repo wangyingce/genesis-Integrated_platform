@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>生成二维码</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <script src="/common/js/jquery/js/jquery.min.js"></script>
+    <link rel="stylesheet"  href="/style/weixin/css/weui.min.css">
+	<script>
+$(function() {     
+    $("#payBtn").click(function() {
+    alert("2");
+    	$("#payBtn").addClass("weui_btn_disabled"); 
+    	$("#payBtn").attr("disabled","disabled"); 
+        var money = $("#money").val();
+        var nickName = $("#nickName").val();
+        $.ajax({     
+            type: "get",     
+            url: "/merchant/createQRcode.do",    
+            data: {
+            	merchantId:money,
+            	nickName:nickName
+            }, 
+            contentType: "application/json; charset=utf-8",     
+            dataType: "json",     
+            success: function(data) {
+            alert(data.nickName);  
+            document.getElementById("nickName").value = data.nickName;
+                        alert("finsih");  
+                        document.getElementById("viewImg").src = data.qrcodePath;;
+                                    alert("finsih-1:"+document.getElementById("viewImg").src);  
+            
+            }  
+        });     
+        return false;     
+    });     
+});
+	</script>
+  </head>
+  
+	<body>
+		<div class="page">
+			<div class="hd">
+				<h1 class="page_title">欢迎</h1>
+			</div>
+			<div class="bd">
+				<div class="weui_cells weui_cells_form">
+					<div class="weui_cell">
+						<div class="weui_cell_hd">
+							<label class="weui_label">商户编号</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+							<input class="weui_input" type="number" step="0.01" min="0.01"
+								name="money" id="money" placeholder="请输入需要支付的金额" />
+						</div>
+					</div>
+					<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label class="weui_label">商户名称</label>
+				</div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="text" name="shanghu" id="nickName"/>
+					<img id="viewImg" src=""/>
+					
+				</div>
+			</div>
+					<br/>
+					<input type="button" value="生成" id="payBtn"
+						class="weui_btn weui_btn_primary" />
+				</div>
+			</div>
+			<div class="weui_dialog_alert" id="dialog2" style="display: none;">
+                <div class="weui_mask"></div>
+                <div class="weui_dialog">
+                    <div class="weui_dialog_hd"><strong class="weui_dialog_title">友情提示</strong></div>
+                    <div class="weui_dialog_bd">您输入的金额有误，请您检查</div>
+                    <div class="weui_dialog_ft">
+                        <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</body>
+</html>
